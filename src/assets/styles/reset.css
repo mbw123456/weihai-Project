@@ -1,0 +1,27 @@
+*{
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+html,body{
+	padding: 0 !important;
+	margin: 0 !important;
+	background-color: #f5f7fa;
+	box-sizing: border-box;
+}
+a{
+	cursor: pointer;
+	text-decoration: none;
+	color:inherit;
+}
+p,ul,h1,h2,h3,h4,h5,h6,li{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+}
+.letter-red{
+	color: #ff6600 !important;;
+}
+.letter-green{
+	color: #67c23a !important;;
+}
