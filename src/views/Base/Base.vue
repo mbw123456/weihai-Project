@@ -1,923 +1,686 @@
 <template>
-  <div class="base"><!-- 这是根节点 -->
-		<!-- banner -->
-		<template>
-			<el-carousel height="320px">
-				<el-carousel-item v-for="(item,key) in bannerList" :key="key">
-					<div class="banner-box" :style="{backgroundImage: 'url('+publicPath+'img/' + item+ ')'}"></div>
-				</el-carousel-item>
-			</el-carousel>
-				<div class="login-box">
-					<div v-if="this.$store.state.autoLogin != 1">
-						<el-button type="warning" @click="goToLogin()">立即登录</el-button>
-						<el-button type="primary" @click="goToRegister()">免费注册</el-button>
-					</div>
-					<div v-else class="login-user">
-						<p>{{this.$store.state.custName}},欢迎回来</p>
-						<el-button type="primary" @click="goToAccount()">我的账户</el-button>
-					</div>
-					<div class="login-box-bar"></div>
-					<el-row :gutter="20">
-						<el-col :span="12" class="login-download">
-							<p>扫一扫</p>
-							<h6>立即下载APP</h6>
-						</el-col>
-						<el-col :span="12"><img src=""></el-col>
-					</el-row>
-				</div>
-		</template>
-		
-		
-		<!-- 公告 -->
-		<div class="base-anno">
-			<div class="base-anno-inner">
-				<el-row :gutter="0">
-					<el-col :span="1" class="base-anno-left"><i class="el-icon-bell"></i></el-col>
-					<el-col :span="12" class="base-anno-center" >
-						<div>
-							<ul :class="{'anim':animate==true,'':animate==false}">
-								<li v-for="(item,key) in annoList" :id="item.id" :key="key">
-									<router-link :to="'/about/annoDetail/'+item.id">{{item.title}}</router-link>
-								</li>
-							</ul>
-						</div>
-					</el-col>
-					<el-col :span="6" :offset="5" style="text-align: right;">
-						<el-button type="primary" id="btn_notices_more" round size="mini"><router-link to="/about/anno">更多公告</router-link></el-button>
-					</el-col>
-				</el-row>
-			</div>
-		</div>
-		
-		<!-- 正利宝、定投宝 -->
-		<div class="base-dtb">
-			<el-row :gutter="30"> 
-				<!-- <el-col :span="12" class="base-dtb-details" v-for="(item,key) in dtbList" :key="key">
-					<transition name="el-zoom-in-center">
-						<div class="detailDiv" v-show="key !== showNum">
-							<div v-if="key !== showFront[key]">
-								<p>{{item.name}}</p>
-								<h5>{{item.desc}}</h5>
-								<h4>{{item.value}}</h4>
-								<span>成立以来收益率</span>
-								<el-button type="primary" round size="medium" @click="showBox(key)">查看详情</el-button>
-							</div>
-							<div v-else style="padding:0 15px;">
-								<h6>投资逻辑</h6>
-								<h3>一款属于货币增强型的产品，在任何年份追求正收益的产品组合。</h3>
-								<h6>风险收益</h6>
-								<h3>中低风险，中低收益</h3>
-								<i class="el-icon-d-arrow-left" @click="hideBox(key)"></i>
-							</div>
-						</div>
-					</transition>
-				</el-col> -->
+  <div class="base">
+    <!-- 这是根节点 -->
+    <!-- banner -->
+    <div>
+      <el-carousel height="540px">
+        <el-carousel-item v-for="(item,key) in bannerList" :key="key">
+          <div class="banner-box" :style="{backgroundImage: 'url('+publicPath+'img/' + item+ ')'}"></div>
+        </el-carousel-item>
+      </el-carousel>
+      <div class="login-box">
+        <div class="login-picBox">
+          <div class="login-pic">
+            <img :src="loginPic">
+          </div>
+          <p>{{loginName}}</p>
+          <div v-if="this.$store.state.autoLogin != null">
+            <el-button plain round size="medium" @click="goToLogin()">注册</el-button>
+            <el-button type="primary" plain round size="medium" @click="goToRegister()">登录</el-button>
+          </div>
+          <div v-else>
+            <el-button type="primary" plain round size="medium" @click="goToRegister()">我的账户</el-button>
+          </div>
+        </div>
 
-				<!-- 正利宝 -->
-				<el-col :span="12" class="base-dtb-details">
-					<transition name="el-zoom-in-center">
-						<div class="detailDiv" v-show="0 !== showNum" v-loading="loading">
-							<div v-if="0 !== showFront[0]">
-								<p>正利宝 R3</p>
-								<h5>货币增强     稳字当头</h5>
-								<h4>{{zlb.f_avgreturn_sincefound}}<b style="font-size:17px;font-weight:bold;">%</b></h4>
-								<span>成立以来收益率</span>
-								<el-button type="primary" round size="medium" @click="showBox(0)">查看详情</el-button>
-							</div>
-							<div v-else style="padding:0 15px;" @click="hideBox(0)">
-								<h6>投资逻辑</h6>
-								<h3>一款属于货币增强型的产品，在任何年份追求正收益的产品组合。</h3>
-								<h6>风险收益</h6>
-								<h3>低风险，低收益</h3>
-								<h2>更多详情请下载好基友基金APP</h2>
-								<i class="el-icon-d-arrow-left"></i>
-							</div>
-						</div>
-					</transition>
-				</el-col>
-				<!-- 定投宝 -->
-				<el-col :span="12" class="base-dtb-details">
-				<transition name="el-zoom-in-center">
-					<div class="detailDiv else" v-show="1 !== showNum" v-loading="loading">
-					<div v-if="1 !== showFront[1]">
-						<p>定投宝 R5</p>
-						<h5>价值低估     长期投资</h5>
-						<h4>{{dtb.f_avgreturn_sincefound}}<b style="font-size:17px;font-weight:bold;">%</b></h4>
-						<span>成立以来收益率</span>
-						<el-button type="primary" round size="medium" @click="showBox(1)">查看详情</el-button>
-					</div>
-					<div v-else style="padding:0 15px;" @click="hideBox(1)">
-						<h6>投资逻辑</h6>
-						<h3>寻找价值稳定、估值被低估、股价跌破每股净资产且股息率在4.5%以上的资产做定期投资。</h3>
-						<h6>风险收益</h6>
-						<h3>中高风险，中高收益</h3>
-						<h2>更多详情请下载好基友基金APP</h2>
-						<i class="el-icon-d-arrow-left"></i>
-					</div>
-					</div>
-				</transition>
-				</el-col>
-			</el-row>
-		</div>
+        <div class="login-box-bar">
+          <p>平台指数</p>
+          <h3>
+            {{platform_num}}
+            <span>位</span>
+          </h3>
+          <h4>累计专家数量</h4>
+        </div>
+        <el-row :gutter="10">
+          <el-col class="login-box-icon" :span="8">
+            <div>
+              <img src="@/assets/img/weihai_index2_03.png">
+            </div>
+            <p>技术共享</p>
+          </el-col>
+          <el-col class="login-box-icon" :span="8">
+            <div style="background-color:#fbe3ce;">
+              <img src="@/assets/img/weihai_index2_05.png">
+            </div>
+            <p>服务转化</p>
+          </el-col>
+          <el-col class="login-box-icon" :span="8">
+            <div style="background-color:#d8d4f6;">
+              <img src="@/assets/img/weihai_index2_07.png">
+            </div>
+            <p>免费对接</p>
+          </el-col>
+        </el-row>
+        <div class="login-box-contact">
+          <img src="@/assets/img/weihai_index1_12.png">
+          <p>热线服务时间：周一至周五 8:30-17:00</p>
+        </div>
+      </div>
+      <div class="login-box-left">
+          <div v-for="(item,key) in requireTitle" :key="key">
+              <h3>{{item.name}}>></h3>
+              <h4>
+                  <a v-for="(item,num) in item.desc" :key="num">{{item}}</a>
+              </h4>
+          </div>
+      </div>
+    </div>
 
-		<!-- 基智宝 -->
-		<div class="base-jzb">
-			<div class="base-jzb-inner">
-				<el-row >
-					<el-col :span="5" class="jzb-left">
-						<h1>基智宝</h1>
-						<div><img src="">组合购买</div>
-						<div><img src="">目标止盈 </div>
-						<div><img src="">资产调仓</div>
-						<img src="">
-					</el-col>
-					<el-col :span="18" :offset="1" class="jzb-right" >
-						<el-row :gutter="30" >
-							<el-col :span="8" class="base-dtb-details" v-for="(item,key) in jzb" :key="key" v-loading="loading">
-								<transition name="el-zoom-in-center">
-									<div class="detailDiv" v-show="key !== jzbShowNum">
-										<div v-if="key !== jzbShowFront[key]">
-											<p>{{item.DICTDATA_NAME}} {{item.level}}</p>
-											<h5>{{item.tag}}</h5>
+    <div class="base-bigTitle">
+        <h2>最新<b>需求</b></h2>
+        <h4><span>latest demand</span></h4>
+    </div>
 
-											<!-- <div style="height:31px;text-align:center; padding: 0px 0px;">
-												<el-row :gutter="0" style="height:31px;padding: 0 0;padding-top: 10px;margin: 0 0;">
-												<el-col :span="12" style="height:31px;padding: 0 0;">
-													<span
-													style="border:1px solid black;width: 70px;color:black;height:20px;line-height:20px;margin: 0px 15px;float:right;"
-													>{{jzbTagArr[key][0]}}</span>
-												</el-col>
-												<el-col :span="12" style="height:31px;padding: 0 0;">
-												<span
-												style="border:1px solid black;width: 70px;color:black;height:20px;line-height:20px;margin: 0px 15px;float:left;"
-												>{{jzbTagArr[key][1]}}</span>
-												</el-col>
-												</el-row>
-											</div> -->
-											<h4>{{item.f_avgreturn_sincefound}}<b style="font-size:17px;font-weight:bold;">%</b></h4>
-											<span>成立以来收益率</span>
-											<el-button type="primary" round size="medium" @click="jzbShowBox(key)">查看详情</el-button>
-										</div>
-										<div v-else style="padding:0 15px;"  @click="jzbHideBox(key)">
-											<h6>投资逻辑</h6>
-											<h3>{{jzbTagArr[key][2]}}</h3>
-											<h6>风险收益</h6>
-											<h3>{{jzbTagArr[key][3]}}</h3>
-											<h2>更多详情请下载好基友基金APP</h2>
-											<i class="el-icon-d-arrow-left"></i>
-										</div>
-									</div>
-								</transition>
-							</el-col>
-						</el-row>
-					</el-col>
-				</el-row>
-			</div>
-		</div>
+    <div class="base_newBox">
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="最新需求" name="first">
+                <a href="" class="more">更多1>></a>
+                <el-row :gutter="15">
+                    <el-col :span="8" v-for="(item,key) in newBoxList" :key="key">
+                        <div class="newbox-style">
+                            <h4>
+                                <span 
+                                :style="{backgroundColor:(item.desc=='个人'? '#e4ebf9':null),color:(item.desc=='个人'? '#3172f4':null)}"
+                                >
+                                {{item.desc}}
+                                </span>
+                                {{item.title}}
+                            </h4>
+                            <h3>
+                                <span>{{item.name}}</span>
+                                <b>{{item.phone}}</b>
+                                <em>{{item.way}}</em>
+                            </h3>
+                            <div>
+                                <span class="el-icon-location-outline"></span>
+                                <b>{{item.address}}</b>
+                                <b>{{item.day}}</b>
+                                <el-button type="text">{{item.button}}</el-button>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-tab-pane>
+            <el-tab-pane label="新材料" name="second">
+                <a href="" class="more">更多>></a>
+            </el-tab-pane>
+            <el-tab-pane label="海洋生物" name="third">海洋生物</el-tab-pane>
+            <el-tab-pane label="自动化" name="fourth">自动化</el-tab-pane>
+        </el-tabs>
+    </div>
 
-		<!-- 小钱袋 -->
-		<div class="base-bag">
-			<h2 class="base-bag-title">小钱袋</h2>
-			<div class="base-bag-inner">
-				<el-row>
-					<el-col :span="6" class="bag-left">
-						<h2>{{xqd.roundData}}<b style="font-size:17px;font-weight:bold;">%</b></h2>
-						<p>七日年化收益</p>
-						<el-popover
-						popper-class="download-popover"
-						placement="top"
-						width="120"
-						trigger="click"
-						>
-						<div style="text-align: center; margin: 0">
-							<img src="">
-						</div>
-						<el-button type="primary" round slot="reference">立即转入</el-button>
-					</el-popover>
-						
-					</el-col>
-					<el-col :span="4" class="bag-center">
-						<img src="">
-						货币基金
-					</el-col>
-					<el-col :span="4" class="bag-center">
-						<img src="">
-						快取秒级到账
-					</el-col>
-					<el-col :span="9" :offset="1">
-						<div class="bag-right">
-							<xqd-chart id="xqd" :style="{height:'260px',position:'relative'}"/>
-						</div>
-					</el-col>
-				</el-row>
-				
-				
-			</div>
-		</div>
+    <div class="base-bigTitle">
+        <h2>成功<b>案例</b></h2>
+        <h4><span>success case</span></h4>
+    </div>
 
-		<!-- NASA -->
-		<div class="base-nasa">
-			<div class="base-nasa-inner">
-					<div class="nasa-title">NASA</div>
-					<el-row >
-						<el-col :span="8" :offset="1" class="nasa-part">
-							<h4>自动投资</h4>
-							<span class="nasa-part-borderTop"></span>
-							<p>（投资收益）（AI投资决策）（机械化自动投资）<br>&nbsp;&nbsp;&nbsp;目标价值  &nbsp;    =    &nbsp;&nbsp;&nbsp;发现价值    &nbsp;&nbsp;&nbsp;  +   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  行动价值<br>选基，调仓自动化，经用户确认后，便可实现自动投资操作。</p>
-							<span class="nasa-part-borderBottom"></span>
-						</el-col>
-						<el-col :span="6" :offset="1" class="nasa-part">
-							<h4>卓越团队</h4>
-							<span class="nasa-part-borderTop"></span>
-							<p>NASA投资由好基友基金专业团队提供服务。秉承“金融交易策略是核心，IT开发是金融策略的封装形式，机器学习是思考大脑和策略进化的保证”的思路。</p>
-							<span class="nasa-part-borderBottom"></span>
-						</el-col>
-						<el-col :span="6" :offset="1" class="nasa-part">
-							<h4>万人万面</h4>
-							<span class="nasa-part-borderTop"></span>
-							<p>根据每位特定用户的风险偏好、身份特质、过往投资行为、投资期望久期等多因子来提供基金FOF服务。</p>
-							<span class="nasa-part-borderBottom"></span>
-						</el-col>
-					</el-row>
-					  <el-popover
-						popper-class="download-popover"
-						placement="top"
-						width="120"
-						trigger="click"
-						>
-						<div style="text-align: center; margin: 0">
-							<img src="">
-						</div>
-						<el-button round slot="reference">查看详情</el-button>
-					</el-popover>
-			</div>
-		</div>
+    <div class="base-bigDesc">
+        <span>申报成功案例，积累信用积分，推荐优先接单</span>
+        <a>立即申报>></a>
+    </div>
+
+    <div class="base-caseBox">
+        <div class="base-caseTitle">
+            <span>案例精选</span>
+            <a>往期查看更多>></a>
+        </div>
+
+        <el-row :gutter="15">
+            <el-col :span="12" v-for="(item,key) in newCaseList" :key="key">
+                <el-row class="base-case">
+                    <el-col :span="10" style="height:140px;">
+                        <img :src="item.url">
+                    </el-col>
+                    <el-col :span="13" :offset="1">
+                        <p>{{item.title}}</p>
+                        <div>
+                            <span>周期:{{item.day}}天</span>
+                            <span>交易金额:<b>{{item.count}}</b>万</span>
+                        </div>
+                        <el-button type="text">查看详情>></el-button>
+                    </el-col>
+                </el-row>
+            </el-col>
+        </el-row>
+    </div>
+
+
+
 
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import XqdChart from '@/components/XqdChart.vue';
-import store from '@/store.js';
 import axios from "axios";
-axios.defaults.withCredentials = true;
 
 export default {
-	name: 'Base',
-	components:{
-		XqdChart
-	},
-	store,
-	data(){
-		return {
-			//获取public路径
-			publicPath: process.env.BASE_URL,
-			loading:true,
-			//banner
-			bannerList:['weihai_index_06.png'],
-			//anno
-			annoList: [],
-			animate: false,
-			//part1
-			dtbList:[    
-				{ "name": "正利宝", "desc":"货币增强     稳字当头", "value": "35.95%" },
-				{ "name": "定投宝", "desc":"价值低估     长期投资", "value": "22.85%" },
-			],
-			loginFlag:false,
-			//dtb
-			showNum:-1,
-			showFront:[-1,-1],
-			//jzb
-			jzbList:[   
-				{ "name": "对抗通胀型", "desc":"分散布局     对抗通胀", "value": "4.54%", "tzlj":"通过配置多个相关性较低的资产以及基金，达到长期追求稳健收益的基金组合。", "fxsy":"中低风险，中低收益" },
-				{ "name": "追求超额收益型", "desc":"低位建仓     建好就收", "value": "3.03%", "tzlj":"依靠积极有效的宏观研究加上理性的投资策略，追求在大部分时间内获得超额收益。", "fxsy":"高风险，高收益" },
-				{ "name": "防守反击型", "desc":"配置转债     可攻可守", "value": "2.85%", "tzlj":"让投资者在大部分时间里以逸待劳，等待可转债出现明显的机会，争取在反击中“一击制胜”。", "fxsy":"中低风险，中高收益" },
-				{ "name": "全球机会型", "desc":"全球建仓     资产轮动", "value": "3.12%", "tzlj":"资产价格走势总是起起伏伏，本产品致力于高抛低吸、抓住这些波动。", "fxsy":"高风险，高收益" },
-			],
-			jzbShowNum:-1,
-			jzbShowFront:[-1,-1,-1,-1],
-			
-			zlb: {},
-			dtb: {},
-			jzb: ['','','',''],
-			jzbTagArr: [
-				["分散布局","对抗通胀", "通过配置多个相关性较低的资产以及基金，达到长期追求稳健收益的基金组合。", "中低风险，中低收益"],
-				["低位建仓","见好就收", "依靠积极有效的宏观研究加上理性的投资策略，追求在大部分时间内获得超额收益。", "高风险，高收益"],
-				["配置转债","可攻可守", "让投资者在大部分时间里以逸待劳，等待可转债出现明显的机会，争取在反击中“一击制胜”。", "中低风险，中高收益"],
-				["全球建仓","资产轮动", "资产价格走势总是起起伏伏，本产品致力于高抛低吸、抓住这些波动。", "高风险，高收益"]
-			],
-			xqd: {},
-			loaded: false,
-			chartdata: []
-		}
-	},
-	methods:{
-		handleSelect(item) {
-        // console.log(item);
-		},
-	
-		handleIconClick(ev) {
-        // console.log(ev);
-		},
-		//anno
-		annoScroll(){
-			this.animate = true;
-			setTimeout(()=>{
-				this.annoList.push(this.annoList[0]);
-				this.annoList.shift();
-				this.animate = false;
-			},500);
-		},
-		//dtb
-		showBox(key){
-			this.showNum = key;
-			setTimeout(()=>{
-				this.showNum = -1;
-				this.showFront[key] = key;
-			},100);
-		},
-		hideBox(key){
-			this.showNum = key;
-			setTimeout(()=>{
-				this.showNum = -1;
-				this.showFront[key] = -1;
-			},100);
-		},
-		//jzb
-		jzbShowBox(key){
-			this.jzbShowNum = key;
-			setTimeout(()=>{
-				this.jzbShowNum = -1;
-				this.jzbShowFront[key] = key;
-			},100);
-		},
-		jzbHideBox(key){
-			this.jzbShowNum = key;
-			setTimeout(()=>{
-				this.jzbShowNum = -1;
-				this.jzbShowFront[key] = -1;
-			},100);
-		},
-		getNotices(){
-			//axios.get("/notices").then(res => {
-				// if(res.data) {
-				// 	if(res.data.tbFundNewsList) {
-				// 		this.annoList = res.data.tbFundNewsList;
-				// 		this.animate = res.data.isShow;
-				// 	}
-				// }
-			this.$httpGet("/index/notices").then(res => {
-				if(res) {
-					if(res.tbFundNewsList) {
-						this.annoList = res.tbFundNewsList;
-						this.animate = res.isShow;
-					}
-				}
-			// eslint-disable-next-line no-unused-vars
-			}).catch(err => {
-				//错误的回调
-				// eslint-disable-next-line no-console
-				console.log("访问接口失败");
-			});
-		},
-		getFundData(){
-			this.$httpGet("/index/baobaoList").then(res => {
-				this.zlb = res.zlbInfo[0];
-				this.dtb = res.dtbTypeE[0];
-				this.jzb = res.wisdomList;
-				this.xqd = res.sevenDayOfYearYield;
-				this.xqd.roundData = String(this.xqd.roundData).replace('%', '');
-				this.loading = false;
-			// eslint-disable-next-line no-unused-vars
-			}).catch(err => {
-				//错误的回调
-				// eslint-disable-next-line no-console
-				console.log("访问接口失败"+err);
-			});
-		},
+  name: "Base",
+  data() {
+    return {
+      //获取public路径
+      publicPath: process.env.BASE_URL,
+      loading: true,
+      //banner
+      bannerList: ["weihai_index_06.png"],
+      loginPic: "/img/weihai_index1_08.png",
+      loginName: "Hi，您好",
+      platform_num: "42245",
+      requireTitle:[
+        { 
+            name: "新材料", 
+            desc:['特种金属','高分子材料','复合材料','无机非金属','结构材料']
+        },
+        { 
+            name: "海洋生物", 
+            desc:['水产养殖','冷冻冷藏','食品加工']
+        },
+        { 
+            name: "自动化", 
+            desc:['组装装配','生产线','机械设计','上下料','焊接','非标设备']
+        },
+        { 
+            name: "船舶制造及配套", 
+            desc:['船体下料','动力装置','舾装设备','推进装置']
+        },
+        { 
+            name: "精密机械", 
+            desc:['数控机床','数控车床','数控磨床','数控电加工机床']
+        },
+        { 
+            name: "其他", 
+        },
+      ],
+      activeName: 'first',
+      newBoxList:[
+          { 
+            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
+            desc:"企业",
+            name:"赵**",
+            phone:"13112445671",
+            way:"面议",
+            address:"环翠区",
+            day:"今天发布",
+            button:"立即参与"
+          },
+          { 
+            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
+            desc:"个人",
+            name:"赵**",
+            phone:"13112445671",
+            way:"面议",
+            address:"环翠区",
+            day:"今天发布",
+            button:"立即参与"
+          },
+          { 
+            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
+            desc:"企业",
+            name:"赵**",
+            phone:"13112445671",
+            way:"面议",
+            address:"环翠区",
+            day:"今天发布",
+            button:"立即参与"
+          },
+          { 
+            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
+            desc:"企业",
+            name:"赵**",
+            phone:"13112445671",
+            way:"面议",
+            address:"环翠区",
+            day:"今天发布",
+            button:"立即参与"
+          },
+      ],
+      newCaseList:[
+          { 
+            url:'/img/weihai_base_13.png',
+            title: "高浓度盐水处理新技术", 
+            day:"120",
+            count:"180",
+          },
+          { 
+            url:'/img/weihai_base_13.png',
+            title: "高浓度盐水处理新技术", 
+            day:"120",
+            count:"180",
+          },
+          { 
+            url:'/img/weihai_base_13.png',
+            title: "高浓度盐水处理新技术", 
+            day:"120",
+            count:"180",
+          },
+      ],
+    };
+  },
+  methods: {
+    handleClick(tab, event) {
+        console.log(tab, event);
+    },
+    goToLogin() {
+        this.$router.push("/login");
+    },
+    goToRegister() {
+        this.$router.push("/register");
+    },
+    goToAccount() {
+        this.$router.push("/account");
+    }
+  },
+  mounted() {
 
-		init() {
-			this.getNotices();
-			this.getFundData();
-			// console.log(this.publicPath);
-			setInterval(this.annoScroll,3000);
-		},
-		goToLogin(){
-			this.$router.push('/login');
-		},
-		goToRegister(){
-			this.$router.push('/register');
-		},
-		goToAccount(){
-			this.$router.push('/account');
-		},
-	},
-	mounted() {
-		this.init();
-	},
-	created(){
-
-	},
-  
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-	@import '@/assets/styles/vars.scss';
-	.base{
-		position:relative;
-		
-		.banner-box{
-			height: 320px;
-			background-position: center center;
-			background-repeat: repeat-x;
-		}
+@import "@/assets/styles/vars.scss";
+.base {
+  position: relative;
 
-		.login-box{
-			box-sizing: border-box;
-			position: absolute;
-			width: 300px;
-			height: 260px;
-			background-color: #fff;
-			right: 50%;
-			margin-right: -570px;
-			top: 30px;
-			z-index: 101;
-			box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.3);
-			padding: 15px 25px;
+  .banner-box {
+    height: 540px;
+    background-position: center top;
+    background-repeat: repeat-x;
+  }
 
-			.el-button{
-				width: 100%;
-				display: block;
-				margin-left: 0;
-				margin-bottom: 10px;
-			}
-			.login-box-bar{
-				height: 1px;
-				background-color: $color-back-first;
-				margin: 15px 0;
-			}
-			.login-download{
-				background: url() no-repeat center 0;
-				height: 104px;
-				text-align: center;
-				padding-top: 25px;
+  .login-box {
+    box-sizing: border-box;
+    position: absolute;
+    width: 280px;
+    height: 540px;
+    background-color: #fff;
+    right: 50%;
+    margin-right: -570px;
+    top: 0px;
+    z-index: 101;
+    border-top: 1px solid $color-back-first;
+    // box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.3);
+    padding: 15px 25px;
 
-				p{
-					font-size: 14px;
-					color: $color-font-second;
-				}
-				h6{
-					font-weight: normal;
-					font-size: 14px;
-					padding-top: 5px;
-					color: $color-primary;
-				}
-			}
-			.login-user{
-				height: 90px;
+    .login-picBox {
+      text-align: center;
 
-				p{
-					font-size: 14px;
-					color: $color-font-second;
-					padding: 10px 0;
-				}
-			}
-		}
-		.base-anno{
-			padding: 15px 0;
-			background-color: #fff;
-			
-			.base-anno-inner{
-				width: 1140px;
-				margin: 0 auto;
-				
-				.base-anno-left{
-					line-height: 28px;
-					
-					i{
-						font-size: 18px;
-						font-weight: bold;
-						color: $color-primary;
-						vertical-align: -2px;
-					}
-				}
-				.base-anno-center{
-					line-height: 28px;
-					color: $color-font-first;
-					font-size: 14px;
-					
-					div{
-						height: 28px;
-						overflow: hidden;
-					}
-					.anim{
-							transition: all .3s;
-							margin-top: -28px;
-					}
-				}
-				
-			}
-			
-		}
-		.base-dtb{
-				width: 1140px;
-				margin: 0 auto;
-				padding-top: 30px;
-				
-				.base-dtb-details{
-					padding-top: 15px;
-					
-					.detailDiv{
-						background: url() no-repeat right center;
-						background-size: 170px;
-						background-color: #fff;
-						padding: 20px 0;
-						text-align: center;
-						transition: all .3s;
-						box-shadow: 0px 0px 10px rgba($color: #000000, $alpha: 0.1);
-						
-						&.else{
-							background-image: url();
-						}
-						div{
-							height: 175px;
-							box-sizing: border-box;
-							position: relative;
-						}
-						&:hover{
-							box-shadow: 0px 0px 10px rgba($color: #000000, $alpha: 0.3);
-							transition: all .3s;
-						}
-						i{
-							padding: 5px;
-							position: absolute;
-							right: 10px;
-							bottom: -7px;
-							color: $color-primary;
-							font-weight: bold;
-							cursor: pointer;
-						}
-						p{
-							font-size: 20px;
-							font-weight: bold;
-							color: $color-font-first;
-						}
-						h4{
-							color: $color-primary;
-							font-size: 30px;
-							margin: 10px 0;
-						}
-						h5{
-							font-size: 16px;
-							padding-top: 10px;
-							font-weight: normal;
-							color: $color-font-second;
-						}
-						h6{
-							color: $color-primary;
-							font-size: 16px;
-							width: 80px;
-							padding-bottom: 5px;
-							border-bottom: 2px solid $color-primary;
-						}
-						h3{
-							font-size: 14px;
-							padding-top: 10px;
-							font-weight: normal;
-							color: $color-font-third;
-							text-align: left;
-							padding-bottom: 20px;
+      .login-pic {
+        width: 75px;
+        height: 75px;
+        margin: 0 auto;
+        border-radius: 50%;
+        overflow: hidden;
 
-							
-						}
-						h2{
-							font-size: 14px;
-							font-weight: normal;
-							color: $color-primary;
-							padding: 5px 25px;
-							text-align: left;
-							background-color: $color-primary-back;
-							border-radius: 3px;
-							position: absolute;
-							bottom: -10px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      p {
+        font-size: 14px;
+        color: $color-font-second;
+        margin-bottom: 10px;
+        margin-top: 5px;
+      }
+      .el-button {
+        margin: 0 10px;
+      }
+    }
+    .login-box-bar {
+      height: 120px;
+      background-color: $color-back-second;
+      margin: 15px 0;
+      border-radius: 5px;
+      overflow: hidden;
 
-						}
-						span{
-							display: block;
-							font-size: 12px;
-							color: $color-font-third;
-						}
-						.el-button{
-							margin-top: 10px;
-						}
-					}
-				}
-				
-		}
-		.base-jzb{
-			margin-top: 50px;
-			background-color: #fff;
-			height: 390px;
+      p {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        color: $color-font-second;
 
-			.base-jzb-inner{
-				width: 1140px;
-				margin: 0 auto;
+        &::before {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 40px;
+          left: 20px;
+          top: 10px;
+          height: 1px;
+          background-color: $color-primary;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 40px;
+          right: 20px;
+          top: 10px;
+          height: 1px;
+          background-color: $color-primary;
+        }
+      }
+      h3 {
+        text-align: center;
+        font-size: 22px;
+        margin-top: 15px;
 
-				.jzb-left{
-					text-align: center;
-					height: 430px;
-					margin-top: -20px;
-					background-color: $color-primary-second;
-					position: relative;
-					
-					&::before{
-						content: '';
-						display: block;
-						position: absolute;
-						right: -20px;
-						border-bottom:20px solid $color-primary-second;
-						border-right:20px solid transparent;
-					}
-					&::after{
-						content: '';
-						display: block;
-						position: absolute;
-						right: -20px;
-						bottom:0;
-						border-width: 20px 20px 0 20px;
-						border-style:solid;
-						border-color: $color-primary-second transparent transparent transparent;
-					}
-					h1{
-						color: #fff;
-						text-align: center;
-						padding-top: 50px;
-						text-shadow: 0 0 10px rgba($color: #000, $alpha: 0.5);
-						padding-bottom: 50px;
-					}
-					div{
-						text-align: center;
-						width: 95%;
-						color: #fff;
-						font-size: 17px;
-						padding-top: 10px;
+        span {
+          font-weight: normal;
+          font-size: 14px;
+          color: $color-font-third;
+          margin-left: 5px;
+        }
+      }
+      h4 {
+        font-weight: normal;
+        color: $color-font-third;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+    .login-box-icon {
+      text-align: center;
+      padding-top: 5px;
 
-						img{
-							vertical-align: -10px;
-							margin-right: 10px;
-						}
-					}
-				}
-				.jzb-right{
+      div {
+        text-align: center;
+        box-sizing: border-box;
+        width: 50px;
+        padding-top: 10px;
+        height: 50px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background-color: #d3e0f7;
+      }
+      p {
+        font-size: 14px;
+        margin-top: 5px;
+        color: $color-font-second;
+      }
+    }
+    .login-box-contact {
+      padding-top: 5px;
 
-					.detailDiv{
-						background-color: #fff;
-						padding: 20px 0;
-						text-align: center;
-						transition: all .3s;
-						box-shadow: 0px 0px 10px rgba($color: #000000, $alpha: 0.2);
-						margin-top: 20px;
-						position: relative;
-						
-						div{
-							height: 300px;
-							box-sizing: border-box;
-						}
-						&:hover{
-							box-shadow: 0px 0px 10px rgba($color: #000000, $alpha: 0.3);
-							transition: all .3s;
-						}
-						i{
-							padding: 5px;
-							position: absolute;
-							right: 15px;
-							bottom: 50px;
-							color: $color-primary;
-							font-weight: bold;
-							cursor: pointer;
-						}
-						p{
-							font-size: 20px;
-							padding-top: 20px;
-							font-weight: bold;
-							color: $color-font-first;
-						}
-						h4{
-							color: $color-primary;
-							font-size: 30px;
-							margin: 30px 0;
-							margin-bottom: 10px;
-						}
-						h5{
-							font-size: 16px;
-							padding-top: 20px;
-							font-weight: normal;
-							color: $color-font-second;
-						}
-						h6{
-							color: $color-primary;
-							font-size: 16px;
-							width: 80px;
-							padding-bottom: 5px;
-							border-bottom: 2px solid $color-primary;
-						}
-						h3{
-							font-size: 14px;
-							padding-top: 5px;
-							font-weight: normal;
-							color: $color-font-third;
-							text-align: left;
-							padding-bottom: 20px;
+      img {
+        width: 100%;
+      }
+      p {
+        font-size: 13px;
+        color: $color-font-third;
+        text-align: center;
+      }
+    }
+  }
+  .login-box-left {
+    box-sizing: border-box;
+    position: absolute;
+    width: 220px;
+    height: 540px;
+    background-color:$color-font-first;
+    left: 50%;
+    margin-left: -570px;
+    top: 0px;
+    z-index: 101;
+    // box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.3);
+    padding: 15px 25px;
 
-							
-						}
-						h2{
-							font-size: 14px;
-							font-weight: normal;
-							color: $color-primary;
-							padding: 5px 20px;
-							text-align: left;
-							background-color: $color-primary-back;
-							border-radius: 3px;
-							position: absolute;
-							bottom: 20px;
+    div{
+        padding-bottom: 15px;
+        h3{
+            font-size: 14px;
+            color: #fff;
+            font-weight: normal;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid $color-font-second;
+            cursor: pointer;
+        }
+        h4{
+            padding: 5px 0;
+            a{
+                font-size: 12px;
+                color: #fff;
+                font-weight: normal;
+                padding-top: 5px;
+                border-right: 1px solid $color-font-second;
+                padding: 0 5px;
 
-						}
-						span{
-							display: block;
-							font-size: 12px;
-							color: $color-font-third;
-						}
-						.el-button{
-							margin-top: 50px;
-						}
-					}
-				}
-			}
-		}
-		.base-bag{
-			width: 1140px;
-			margin: 0 auto;
-			margin-top: 60px;
+                &:first-child{
+                    padding-left: 0;
+                }
+                &:last-child{
+                    border: none 0;
+                }
 
-			.base-bag-title{
-				padding-bottom: 15px;
-				color: $color-font-first;
-			}
-			.base-bag-inner{
-				background-color: #fff;
-				height: 220px;
-				box-shadow: 0px 0px 10px rgba($color: #000000, $alpha: 0.2);
-				box-sizing: border-box;
+            }
+        }
 
-				.bag-left{
-					text-align: center;
-					padding-top: 50px;
-					h2{
-						color: $color-primary;
-						font-size: 40px;
-					}
-					p{
-						font-size: 14px;
-						color: $color-font-second;
-						margin-top: 5px;
-					}
-					.el-button{
-						width: 60%;
-						margin: 0 auto;
-						margin-top: 15px;
-					}
-				}
-				.bag-center{
-					padding-top: 80px;
-					font-size: 17px;
-					color: $color-font-first;
-					text-align: center;
-					img{
-						vertical-align: -12px;
-						margin-right: 5px;
-					}
-				}
-				.bag-right{
-					height: 260px;
-					border-radius: 5px;
-					box-shadow: 0px 0px 15px rgba($color: #000000, $alpha: 0.2);
-					background-color: #fff;
-					margin-top: -70px;
-					margin-right: 20px;
-					border-radius: 5px;
-					position: relative;
-
-					&::before{
-						content: '';
-						position: absolute;
-						width: 50px;
-						height: 50px;
-						background: url() no-repeat center center;
-						background-size: 40px;
-						bottom: 50px;
-						left: -30px;
-						z-index: 10000;
-					}
-					&::after{
-						content: '';
-						position: absolute;
-						width: 480px;
-						height: 50px;
-						background: url() no-repeat center center;
-						background-size: contain;
-						bottom: -40px;
-						left: -40px;
-						z-index: 10000;
-					}
-				}
-			}
-		}
-		.base-nasa{
-			background: url() no-repeat center 0;
-			margin-top: 40px;
-			padding-bottom: 30px;
-
-			.base-nasa-inner{
-				width: 1140px;
-				margin: 0 auto;
-
-				.nasa-title{
-					color: #b49c61;
-					font-size: 40px;
-					padding-top: 30px;
-				}
-				.nasa-part{
-					padding-top: 30px;
-
-					h4{
-						color: #b49c61;
-						font-size: 18px;
-					}
-					p{
-						color: #c5ae9a;
-						font-size: 15px;
-						padding-left: 15px;
-						padding-right: 15px;
-						padding-top: 0px;
-						line-height: 25px;
-					}
-					.nasa-part-borderTop{
-						display: block;
-						width: 100%;
-						height: 40px;
-						background: url() no-repeat 0 center;
-						background-size: 70px;
-					}
-					.nasa-part-borderBottom{
-						display: block;
-						width: 100%;
-						height: 40px;
-						background: url() no-repeat right center;
-						background-size: 70px;
-					}
-					
-				}
-				.el-button{
-					margin-top: 20px;
-					width: 150px;
-					color: $color-primary;
-				}
-			}
-		}
-	}
+    }
 
 
-.my-autocomplete {
-		
-	li {
-		.name {
-			padding-top: 5px;
-			line-height: 25px;
-			text-overflow: ellipsis;
-			overflow: hidden;
-		}
-		.addr {
-			padding-bottom: 5px;
-			line-height: 15px;
-			font-size: 12px;
-			color: #b4b4b4;
-			display: block;
-		}
-		.highlighted .addr {
-			color: #ddd;
-		}
-		
-	}
-	
+
+  }
+  .base_newBox{
+    width: 1140px;
+    margin: 0 auto;
+    margin-top: 20px;      
+    
+    .newbox-style{
+        border: 3px solid $color-back-first;
+        box-sizing: border-box;
+        padding: 15px 15px;
+        height: 150px;
+        margin-bottom: 15px;
+
+        h4{
+            white-space: nowrap; 
+            text-overflow:ellipsis;
+            overflow:hidden; 
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 25px;
+
+            span{
+                font-size: 13px;
+                padding: 3px 10px;
+                border-radius: 3px;
+                background-color: #cef4eb;
+                color: #1fd295;
+                margin-right: 5px;
+            }
+        }
+        h3{ 
+            margin: 5px 0;
+            font-size: 16px;
+            font-weight: normal;
+            text-align: left;
+            border-bottom:1px solid $color-back-first;
+            padding: 15px 0;
+
+            span{
+                margin-right: 10px;
+            }
+            b{
+                color: $color-primary;
+            }
+            em{
+                float: right;
+                font-style: normal;
+                color: #ffa92a;
+            }
+        }
+        div{
+            color: $color-font-third;
+            font-size: 14px;
+            span{
+                margin-top: 10px;
+            }
+            b{
+                font-weight: normal;
+                padding: 0 10px;
+                border-right: 1px solid $color-back-first;
+
+                &:last-child{
+                    border: none 0;
+                }
+            }
+            .el-button{
+                float: right;
+                padding-top: 9px;
+
+            }
+        }
+    }
+    .more{
+        position: absolute;
+        right: 15px;
+        top: -44px;
+        z-index: 100;
+        font-size: 14px;
+        color: $color-font-second;
+
+        &:hover{
+            color: $color-primary;
+        }
+    }
+  }
+  .base-bigTitle{
+      padding-top: 50px;
+      width: 380px;
+      margin: 0 auto;
+      border-bottom: 1px solid $color-back-first;
+      text-align: center;
+      padding-bottom: 10px;
+
+      h2{
+          font-weight: normal;
+          font-size: 26px;
+          color: $color-font-first;
+      }
+      h4{
+          color: $color-font-third;
+          font-weight: normal;
+          padding-top: 5px;
+          font-size: 14px;
+          text-transform: Uppercase;
+          
+          span{
+              padding: 0 15px;
+              padding-bottom: 9px;
+              border-bottom: 3px solid $color-primary;
+          }
+      }
+  }
+  .base-bigDesc{
+      height: 50px;
+      border-radius: 150px;
+      width: 1140px;
+      margin: 20px auto;
+      background: url(~@/assets/img/weihai_index_09.png) no-repeat center center;
+      text-align: center;
+      line-height: 50px;
+
+      span{
+          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+      }
+      a{
+          color: #fff;
+          font-size: 20px;
+          margin-left: 260px;
+      }
+  }
+  .base-caseBox{
+      width: 1140px;
+      margin: 30px auto;
+      .base-caseTitle{
+          border-bottom: 1px solid $color-back-first;
+          line-height: 40px;
+          margin-bottom: 30px;
+
+          span{
+              color: $color-font-second;
+          }
+          a{
+              float: right;
+              color: $color-font-second;
+              font-size: 14px;
+
+              &:hover{
+                  color: $color-primary;
+              }
+          }
+      }
+      .base-case{
+          border: 1px solid $color-back-first;
+          margin-bottom: 15px;
+          padding: 10px;
+          height: 160px;
+          box-sizing: border-box;
+          padding-right: 15px;
+          
+          .el-col{
+            img{
+                width: 100%;
+                height: 100%;
+            }
+            p{
+                color: $color-font-second;
+                padding-top: 5px;
+            }
+            div{
+                padding-top: 30px;
+                border-bottom: 1px solid $color-back-first;
+                padding-bottom: 10px;
+
+                span{
+                    font-size: 14px;
+                    color: $color-font-second;
+
+                    &:last-child{
+                        float: right;
+                    }
+
+                    b{
+                        color: #f23030;
+                        font-size: 16px;
+                    }
+                }
+            }
+            .el-button{
+                margin-top: 10px;
+                float: right;
+            }
+          }
+      }
+  }
 }
 </style>
-<style>
-.download-popover.el-popover{
-	min-width: 50px !important;
-	padding: 0 !important;	
+<style lang="scss">
+@import "@/assets/styles/vars.scss";
+.base{
+    .el-tabs__content{
+        overflow:inherit;
+    }
+    .el-tabs__nav-scroll{
+        background-color: $color-back-first;
+    }
+    .el-tabs__item.is-active{
+        background-color: $color-primary;
+        color: #fff !important;
+    }
+    .el-tabs__active-bar{
+        background-color:transparent;
+    }
+    .el-tabs--top .el-tabs__item.is-top:nth-child(2){
+        padding-left:20px;
+    }
+    .el-tabs--top .el-tabs__item.is-top:last-child{
+        padding-right:20px;
+    }
 }
 </style>

@@ -310,8 +310,6 @@ export default {
     box-sizing: border-box;
     padding-top: 30px;
 
-    img{
-    }
     .el-autocomplete {
       width: 400px;
       float: right;
@@ -331,7 +329,6 @@ export default {
   }
   .header-bottom {
     height: 50px;
-    border-bottom: 1px solid $color-back-second;
 
     .header-bottom-inner {
       width: 1140px;
@@ -342,6 +339,7 @@ export default {
       }
       .el-menu--horizontal > .el-menu-item.is-active{
           color: $color-primary;
+          border-width: 4px;
       }
       .el-menu-item {
         font-size: 16px;
