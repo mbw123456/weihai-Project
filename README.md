@@ -1,4 +1,4 @@
-# hjy-project
+# weihai-project
 
 ## Project setup
 ```
@@ -15,28 +15,11 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### mbw
-1、dist文件夹是打包文件夹，不要做修改
-2、node是脚手架文件夹，不要做修改
-3、public文件夹是用来放置打包不需要压缩的文件，与动态加载的文件
-4、src文件夹是项目文件夹，几乎所有的修改都是在src文件夹内
 
-本地调试:终端或cmd 运行 npm run serve
-
-本项目使用的框架是“饿了么UI”。地址：http://element-cn.eleme.io/
+VUE elementUI 全局样式修改的坑：
+修改全局变量 命令行：.\node_modules\.bin\et -i
 
 $router和$route的关系:
 $route为当前router跳转对象里面可以获取name、path、query、params等

@@ -38,7 +38,8 @@ module.exports = {
     port: 80, // 服务端口
     hotOnly: false,
     //proxy: null, // 设置代理
-    proxy: {
+    proxy: null,
+    // {
       // '/api': {
       //   target: 'http://www.haojiyoujijin.com/hjy_app/api',  // target host
       //   ws: true,  // proxy websockets 
@@ -48,16 +49,16 @@ module.exports = {
       //   }
       // },
       
-      '/hjy_pc_interface': {
-         target: 'http://192.168.13.110:15000',  // target host
+      // '/hjy_pc_interface': {
+      //    target: 'http://192.168.13.110:15000',  // target host
           // target: 'http://192.168.16.51:8000',
-        ws: true,  // proxy websockets 
-        changeOrigin: true,  // needed for virtual hosted sites
+        // ws: true,  // proxy websockets 
+        // changeOrigin: true,  // needed for virtual hosted sites
         // pathRewrite: {
         //   '^/pc': ''  // rewrite path
         // }
-      }
-    },
+      // }
+    // },
     before: app => {}
   },
 };

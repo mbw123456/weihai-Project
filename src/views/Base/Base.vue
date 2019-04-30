@@ -22,7 +22,7 @@
 							<p>扫一扫</p>
 							<h6>立即下载APP</h6>
 						</el-col>
-						<el-col :span="12"><img src="@/assets/img/base-img1_05.png"></el-col>
+						<el-col :span="12"><img src=""></el-col>
 					</el-row>
 				</div>
 		</template>
@@ -126,10 +126,10 @@
 				<el-row >
 					<el-col :span="5" class="jzb-left">
 						<h1>基智宝</h1>
-						<div><img src="@/assets/img/base-img2_03.png">组合购买</div>
-						<div><img src="@/assets/img/base-img2_06.png">目标止盈 </div>
-						<div><img src="@/assets/img/base-img2_09.png">资产调仓</div>
-						<img src="@/assets/img/base-img_16.png">
+						<div><img src="">组合购买</div>
+						<div><img src="">目标止盈 </div>
+						<div><img src="">资产调仓</div>
+						<img src="">
 					</el-col>
 					<el-col :span="18" :offset="1" class="jzb-right" >
 						<el-row :gutter="30" >
@@ -190,18 +190,18 @@
 						trigger="click"
 						>
 						<div style="text-align: center; margin: 0">
-							<img src="@/assets/img/header_phone_ewm.png">
+							<img src="">
 						</div>
 						<el-button type="primary" round slot="reference">立即转入</el-button>
 					</el-popover>
 						
 					</el-col>
 					<el-col :span="4" class="bag-center">
-						<img src="@/assets/img/base-img_20.png">
+						<img src="">
 						货币基金
 					</el-col>
 					<el-col :span="4" class="bag-center">
-						<img src="@/assets/img/base-img_24.png">
+						<img src="">
 						快取秒级到账
 					</el-col>
 					<el-col :span="9" :offset="1">
@@ -246,7 +246,7 @@
 						trigger="click"
 						>
 						<div style="text-align: center; margin: 0">
-							<img src="@/assets/img/header_phone_ewm.png">
+							<img src="">
 						</div>
 						<el-button round slot="reference">查看详情</el-button>
 					</el-popover>
@@ -275,7 +275,7 @@ export default {
 			publicPath: process.env.BASE_URL,
 			loading:true,
 			//banner
-			bannerList:['base-img_06.png'],
+			bannerList:['weihai_index_06.png'],
 			//anno
 			annoList: [],
 			animate: false,
@@ -460,7 +460,7 @@ export default {
 				margin: 15px 0;
 			}
 			.login-download{
-				background: url(../../assets/img/base-img1_03.png) no-repeat center 0;
+				background: url() no-repeat center 0;
 				height: 104px;
 				text-align: center;
 				padding-top: 25px;
@@ -531,7 +531,7 @@ export default {
 					padding-top: 15px;
 					
 					.detailDiv{
-						background: url(~@/assets/img/base-img_09.png) no-repeat right center;
+						background: url() no-repeat right center;
 						background-size: 170px;
 						background-color: #fff;
 						padding: 20px 0;
@@ -540,7 +540,7 @@ export default {
 						box-shadow: 0px 0px 10px rgba($color: #000000, $alpha: 0.1);
 						
 						&.else{
-							background-image: url(~@/assets/img/base-img_11.png);
+							background-image: url();
 						}
 						div{
 							height: 175px;
@@ -816,7 +816,7 @@ export default {
 						position: absolute;
 						width: 50px;
 						height: 50px;
-						background: url(~@/assets/img/base-bag_03.png) no-repeat center center;
+						background: url() no-repeat center center;
 						background-size: 40px;
 						bottom: 50px;
 						left: -30px;
@@ -827,7 +827,7 @@ export default {
 						position: absolute;
 						width: 480px;
 						height: 50px;
-						background: url(~@/assets/img/base-bag_07.png) no-repeat center center;
+						background: url() no-repeat center center;
 						background-size: contain;
 						bottom: -40px;
 						left: -40px;
@@ -837,7 +837,7 @@ export default {
 			}
 		}
 		.base-nasa{
-			background: url('~@/assets/img/base-img_29.png') no-repeat center 0;
+			background: url() no-repeat center 0;
 			margin-top: 40px;
 			padding-bottom: 30px;
 
@@ -869,14 +869,14 @@ export default {
 						display: block;
 						width: 100%;
 						height: 40px;
-						background: url('~@/assets/img/base-img-border_03.png') no-repeat 0 center;
+						background: url() no-repeat 0 center;
 						background-size: 70px;
 					}
 					.nasa-part-borderBottom{
 						display: block;
 						width: 100%;
 						height: 40px;
-						background: url('~@/assets/img/base-img-border_07.png') no-repeat right center;
+						background: url() no-repeat right center;
 						background-size: 70px;
 					}
 					
