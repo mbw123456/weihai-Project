@@ -19,24 +19,29 @@ export default new Router({
 					// redirect:'/home/base',
 				},
 				{
-					path: 'shop',
-					name: 'shop',
-					component: () => import( /* webpackChunkName: "shop" */ '@/views/Shop/Shop.vue'),
+					path: 'need',
+					name: 'need',
+					component: () => import( /* webpackChunkName: "shop" */ '@/views/Need/Need.vue'),
+				},
+				{
+					path: 'service',
+					name: 'service',
+					component: () => import( /* webpackChunkName: "shop" */ '@/views/Service/Service.vue'),
 				},
 				{
 					path: 'funddetails',
 					name: 'funddetails',
-					component: () => import( /* webpackChunkName: "shop" */ '@/views/Shop/FundDetails.vue'),
+					component: () => import( /* webpackChunkName: "shop" */ '@/views/Need/FundDetails.vue'),
 				},
 				{
 					path: 'companydetails/:aid',
 					name: 'companydetails',
-					component: () => import( /* webpackChunkName: "shop" */ '@/views/Shop/CompanyDetails.vue'),
+					component: () => import( /* webpackChunkName: "shop" */ '@/views/Need/CompanyDetails.vue'),
 				},
 				{
 					path: 'fundAnno',
 					name: 'fundAnno',
-					component: () => import( /* webpackChunkName: "shop" */ '@/views/Shop/FundAnno.vue'),
+					component: () => import( /* webpackChunkName: "shop" */ '@/views/Need/FundAnno.vue'),
 				},
 				{
 					path: 'risk',
@@ -125,59 +130,29 @@ export default new Router({
 					],
 				},
 				{
-					path: 'about',
+					path: 'case',
 					// name: 'about',
-					component: () => import( /* webpackChunkName: "about" */ '@/views/About/About.vue'),
+					component: () => import( /* webpackChunkName: "about" */ '@/views/Case/Case.vue'),
 					children: [
 						{
 							path: '/',
-							name: 'about_root',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/Aboutus.vue')
-						}
-						// ,{
-						// 	path: '/aboutus',
-						// 	name: 'about_aboutus',
-						// 	component: Aboutus
-						// }
-						,{
-							path: 'anno',
-							name: 'about_anno',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/Anno.vue')
-						}
-						,{
-							path: 'annoDetail/:aid',
-							name: 'about_annoDetail',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/AnnoDetail.vue')
-						}
-						,{
-							path: 'legal',
-							name: 'about_legal',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/Legal.vue')
-						}
-						,{
-							path: 'document',
-							name: 'about_document',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/Document.vue')
+							name: 'caseAll',
+							component: () => import( /* webpackChunkName: "about" */ '@/views/Case/CaseAll.vue')
 						}
 						,{
 							path: 'help',
 							name: 'about_help',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/Help.vue')
-						}
-						,{
-							path: 'investorEducation',
-							name: 'about_investorEducation',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/InvestorEducation.vue')
+							component: () => import( /* webpackChunkName: "about" */ '@/views/Case/Help.vue')
 						}
 						,{
 							path: 'optionGuide',
 							name: 'about_optionGuide',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/OptionGuide.vue')
+							component: () => import( /* webpackChunkName: "about" */ '@/views/Case/OptionGuide.vue')
 						}
 						,{
 							path: 'complain',
 							name: 'about_complain',
-							component: () => import( /* webpackChunkName: "about" */ '@/views/About/Complain.vue')
+							component: () => import( /* webpackChunkName: "about" */ '@/views/Case/Complain.vue')
 						}
 					]
 				}

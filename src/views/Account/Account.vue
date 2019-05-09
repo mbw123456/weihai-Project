@@ -2,26 +2,36 @@
   <div class="account"><!-- 这是根节点 -->
 	<div class="account-inner">
 		<el-row>
-			<el-col :span="5" >
+			<el-col style="width:220px;">
 				<div class="account-leftbox">
-					<div class="account-titlebox">
-						<div><img :src="head_url"></div>
-						<p>{{title_name}}</p>
-						<h6>上次登录:{{last_login_time}}</h6>
-					</div>
 
 					<div class="account-routebtn">
-						<router-link :to="{ path: '/account'}" tag="li"><span class="iconfont-hjy icon-hjyzichan"></span>基金资产<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/plan'}" tag="li"><span class="iconfont-hjy icon-hjyshijian"></span>定投计划<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/detail'}" tag="li"><span class="iconfont-hjy icon-hjyxinxishichang"></span>交易明细<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/invite'}" tag="li"><span class="iconfont-hjy icon-hjyyiqipindan"></span>邀请好友<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/set'}" tag="li"><span class="iconfont-hjy icon-hjyfuwuguanli"></span>账户设置<i class="el-icon-caret-right"></i></router-link>
+						<p><span class="el-icon-user"></span>个人中心</p>
+						<router-link :to="{ path: '/account'}" tag="li">基金资产<i class="el-icon-caret-right"></i></router-link>
+
+						<p><span class="el-icon-document"></span>需求管理</p>
+						<router-link :to="{ path: '/account/plan'}" tag="li">我发布的<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/detail'}" tag="li">我参与的<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/invite'}" tag="li">需求跟踪<i class="el-icon-caret-right"></i></router-link>
+						
+						<p><span class="el-icon-edit-outline"></span>服务管理</p>
+						<router-link :to="{ path: '/account/set'}" tag="li">我的服务<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/set1'}" tag="li">服务跟踪<i class="el-icon-caret-right"></i></router-link>
+
+						<p><span class="el-icon-star-off"></span>成功案例</p>
+						<router-link :to="{ path: '/account/plan1'}" tag="li">我的案例<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/detail1'}" tag="li">申请案例<i class="el-icon-caret-right"></i></router-link>
+						
+						<p><span class="el-icon-setting"></span>个人设置</p>
+						<router-link :to="{ path: '/account/set2'}" tag="li">个人资料<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/set3'}" tag="li">名片管理<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/set4'}" tag="li">认证管理<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/set5'}" tag="li">密码管理<i class="el-icon-caret-right"></i></router-link>
 					</div>
 				</div>
-				<p class="account-download"><i class="el-icon-mobile-phone" style="margin-right:5px; font-size:14px;"></i>更多信息可在app中查看</p>
 			</el-col>
-			<el-col :span="18" :offset="1">
-					<keep-alive exclude="Plan,Asset,Detail,Invite">
+			<el-col :span="19" :offset="1" style="width:870px;">
+					<keep-alive>
 						<router-view></router-view>
 					</keep-alive>
 			</el-col>
@@ -53,55 +63,55 @@ export default {
 		}
 	},
 	methods:{
-		getAccountBaseMessage(){//查询客户基本信息
-			this.$httpPost("/pc/account/accountBase").then(res => {
-				this.title_name = res.cust_name;
-				this.last_login_time = res.last_login_time_str;
-				// this.dtb = res.resultData.dtbTypeE[0];
-				// this.jzb = res.resultData.wisdomList;
-				// this.xqd = res.resultData.sevenDayOfYearYield;
-				// this.xqd.roundData = String(this.xqd.roundData).replace('%', '');
-				// this.loading = false;
-			// eslint-disable-next-line no-unused-vars
-			}).catch(err => {
-				//错误的回调
-				// eslint-disable-next-line no-console
-				console.log("访问接口失败"+err);
-			});
-		},
-		queryCustInfoForAccountCal(){//查询客户总资产
-			this.$httpPost("/pc/account/accountBase").then(res => {
-				this.title_name = res.cust_name;
-				this.last_login_time = res.last_login_time_str;
+		// getAccountBaseMessage(){//查询客户基本信息
+		// 	this.$httpPost("/pc/account/accountBase").then(res => {
+		// 		this.title_name = res.cust_name;
+		// 		this.last_login_time = res.last_login_time_str;
+		// 		// this.dtb = res.resultData.dtbTypeE[0];
+		// 		// this.jzb = res.resultData.wisdomList;
+		// 		// this.xqd = res.resultData.sevenDayOfYearYield;
+		// 		// this.xqd.roundData = String(this.xqd.roundData).replace('%', '');
+		// 		// this.loading = false;
+		// 	// eslint-disable-next-line no-unused-vars
+		// 	}).catch(err => {
+		// 		//错误的回调
+		// 		// eslint-disable-next-line no-console
+		// 		console.log("访问接口失败"+err);
+		// 	});
+		// },
+		// queryCustInfoForAccountCal(){//查询客户总资产
+		// 	this.$httpPost("/pc/account/accountBase").then(res => {
+		// 		this.title_name = res.cust_name;
+		// 		this.last_login_time = res.last_login_time_str;
 				
-			}).catch(err => {
-				//错误的回调
-				// eslint-disable-next-line no-console
-				console.log("访问接口失败"+err);
-			});
-		},
-		getHeadPortrait(){//查询DIY资产
-			this.$httpPost("/pc/account/getHeadPortrait").then(res => {
-				if(res.url){
-					this.head_url = res.url;
-					console.log('head_url:' + res.url);
-				}
-			}).catch(err => {
-				//错误的回调
-				// eslint-disable-next-line no-console
-				console.log("访问接口失败"+err);
-			});
-		},
-		init() {
-			// this.getNotices();
-			this.getAccountBaseMessage();
-			this.getHeadPortrait();
-			// console.log(this.publicPath);
-			// setInterval(this.annoScroll,3000);
-		}
+		// 	}).catch(err => {
+		// 		//错误的回调
+		// 		// eslint-disable-next-line no-console
+		// 		console.log("访问接口失败"+err);
+		// 	});
+		// },
+		// getHeadPortrait(){//查询DIY资产
+		// 	this.$httpPost("/pc/account/getHeadPortrait").then(res => {
+		// 		if(res.url){
+		// 			this.head_url = res.url;
+		// 			console.log('head_url:' + res.url);
+		// 		}
+		// 	}).catch(err => {
+		// 		//错误的回调
+		// 		// eslint-disable-next-line no-console
+		// 		console.log("访问接口失败"+err);
+		// 	});
+		// },
+		// init() {
+		// 	// this.getNotices();
+		// 	this.getAccountBaseMessage();
+		// 	this.getHeadPortrait();
+		// 	// console.log(this.publicPath);
+		// 	// setInterval(this.annoScroll,3000);
+		// }
 	},
 	mounted() {
-		this.init();
+		// this.init();
 	},
   
 }
@@ -119,56 +129,42 @@ export default {
 			width: 1140px;
 			margin: 0 auto;
 
-			.account-download{
-				font-size: 12px;
-				color: $color-font-fourth;
-				text-align: center;
-				padding-top: 20px;
-			}
 			.account-leftbox{
-				height: 500px;
 				background-color: #fff;
-				box-shadow: 0 5px 5px rgba($color: #000000, $alpha: 0.2);
 				border-radius: 5px;
+				padding:0 15px;
+				overflow: hidden;
+				padding-bottom: 20px;
 			
-				.account-titlebox{
-					padding: 20px;
-					height: 147px;
+				.account-routebtn{
+					
+					p{
+						padding: 10px 0;
+						text-align: left;
+						font-size: 17px;
+						padding-left: 20px;
+						border-top: 1px solid $color-back-first;
+						padding-top: 20px;
+						margin-top: 15px;
 
-					div{
-						height: 90px;
-						width: 90px;
-						margin: 0 auto;
-						border-radius: 50%;
+						&:first-child{
+							border: none 0;
+							margin-top: 5px;
+						}
 
-						img{
-							display: block;
-							width: 100%;
-							height: 100%;
+						span{
+							font-size: 21px;
+							color: $color-font-third;
+							margin-right: 10px;
+							vertical-align: -2px;
 						}
 					}
-					p{
-						text-align: center;
-						padding-top: 15px;
-						color: $color-font-first;
-					}
-					h6{
-						text-align: center;
-						font-weight: normal;
-						color: $color-font-fourth;
-						padding-top: 5px;
-					}
-				}
-				.account-routebtn{
-					padding-top: 30px;
-
 					li{
-						line-height: 50px;
+						line-height: 35px;
 						padding: 0 15px;
-						padding-left: 35px;
-						border-top: 1px solid $color-back-second;
+						padding-left: 50px;
 						color: $color-font-third;
-						font-size: 16px;
+						font-size: 14px;
 						cursor: pointer;
 						box-sizing: border-box;
 
@@ -179,30 +175,30 @@ export default {
 							margin-right: 20px;
 						}
 						i{
-							font-size: 20px;
+							font-size: 17px;
 							color: #fff;
 							float: right;
-							line-height: 50px;
+							line-height: 35px;
 						}
 						&:hover{
-							color: $color-font-first;
+							color: $color-primary;
 						}
 						&:hover span{
 							color: $color-primary;
 						}
 						&:hover i{
-							color: $color-font-fourth;
+							color: $color-primary;
 						}
 					}
 					.router-link-exact-active{
-						color:$color-font-first;
-						background-color: $color-back-third;
+						color:$color-primary;
+						background-color:$color-primary-second;
 
 						span{
 							color: $color-primary;
 						}
 						i{
-							color: $color-font-fourth;
+							color: $color-primary;
 						}
 					}
 				}

@@ -1,10 +1,16 @@
 <template>
-  <div class="about">
+  <div class="case">
     <!-- 这是根节点 -->
     <div class="about-inner">  
+      <div class="need-breadcrumb-inner">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>成功案例</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
       <el-row>
         <el-col :span="4">
-          <AboutHeader/>
+          <CaseHeader/>
         </el-col>
         <el-col :span="19" :offset="1" class="about-rightbox">
           <keep-alive>
@@ -21,31 +27,27 @@
 
 <script>
 /* eslint-disable */
-import AboutHeader from '@/components/AboutHeader.vue';
+import CaseHeader from '@/components/CaseHeader.vue';
 
 export default {
-  name: "About",
-  components:{ AboutHeader }
+  name: "Case",
+  components:{ CaseHeader }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import "@/assets/styles/vars.scss";
-.about{
+.case{
   .about-inner{
     width: 1140px;
     margin: 20px auto;
-    min-height: 600px;
-    
-    .about-rightbox{
-      background-color: #fff;
-      box-sizing: border-box;
-      padding: 15px;
-      box-shadow: 0 3px 5px rgba($color: #000000, $alpha: 0.1);
-      border-radius: 5px;
-      min-height: 500px;
+    margin-top:0;
+
+    .need-breadcrumb-inner{
+      padding: 15px 0;
     }
+    
   }
 }
 </style>

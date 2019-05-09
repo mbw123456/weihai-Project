@@ -11,7 +11,7 @@
             </div>
           </el-col>
           <el-col :span="12" :offset="0">
-            <div class="header-top-right" v-if="this.$store.state.autoLogin != null">
+            <div class="header-top-right" v-if="this.$store.state.autoLogin != 1">
               <!-- <el-button @click="inClick">点击存储为登录状态</el-button>
 							<el-button @click="outClick">点击存储为退出状态</el-button>
               <el-button>{{this.$store.state.autoLogin}}</el-button>-->
@@ -24,7 +24,7 @@
               </span>
             </div>
             <div class="header-top-right" v-else>
-              <router-link to="/account">{{this.$store.state.custName}}</router-link>
+              <router-link to="/account">{{this.$store.state.custName}}mbw</router-link>
               <router-link to="/register" style="color:#606266;">帮助中心</router-link>
               <a @click="outClick">退出</a>
             </div>
@@ -72,9 +72,9 @@
           >
             <div>热门需求</div>
             <el-menu-item index="/">首页</el-menu-item>
-            <el-menu-item index="/shop">找需求</el-menu-item>
-            <el-menu-item index="/about">找服务</el-menu-item>
-            <el-menu-item index="/about1">成功案例</el-menu-item>
+            <el-menu-item index="/need">找需求</el-menu-item>
+            <el-menu-item index="/service">找服务</el-menu-item>
+            <el-menu-item index="/case">成功案例</el-menu-item>
             <el-menu-item index="/account">个人中心</el-menu-item>
           </el-menu>
         </div>
@@ -210,24 +210,23 @@ export default {
       if (this.$route.name == "") {
         return "/";
       } else if (
-        this.$route.name == "shop" ||
+        this.$route.name == "need" ||
         this.$route.name == "funddetails" ||
         this.$route.name == "companydetails" ||
         this.$route.name == "fundAnno"
       ) {
-        return "/shop";
+        return "/need";
       } else if (
-        this.$route.name == "about_root" ||
-        this.$route.name == "about_anno" ||
-        this.$route.name == "about_annoDetail" ||
-        this.$route.name == "about_legal" ||
-        this.$route.name == "about_document" ||
+        this.$route.name == "service"
+      ) {
+        return "/service";
+      } else if (
+        this.$route.name == "caseAll" ||
         this.$route.name == "about_help" ||
-        this.$route.name == "about_investorEducation" ||
         this.$route.name == "about_optionGuide" ||
         this.$route.name == "about_complain"
       ) {
-        return "/about";
+        return "/case";
       } else if (
         this.$route.name == "asset" ||
         this.$route.name == "plan" ||

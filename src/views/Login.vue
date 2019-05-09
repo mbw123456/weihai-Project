@@ -21,7 +21,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')" native-type="submit" :loading="btnLoading">登录</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')" :loading="btnLoading">登录</el-button>
             <h6><router-link to="/forget">忘记密码?</router-link></h6>
           </el-form-item>
         </el-form>
@@ -67,33 +67,33 @@ export default {
       this.btnLoading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$httpPost("/pc/userLogin/login",{account:this.form.account,accountPwd:this.form.password}).then(res => {
-            if(res.isValid == "true"){
-              var riskType = res.riskType;
-              this.$store.commit('changeRiskType',res.riskType); //修改登录状态
-              this.$store.commit('setCustName',res.user.custfullname); //修改登录状态
-              this.title_name = res.user.custfullname;
-              this.last_login_time = res.last_login_time_str;
+          // this.$httpPost("/pc/userLogin/login",{account:this.form.account,accountPwd:this.form.password}).then(res => {
+          //   if(res.isValid == "true"){
+              // var riskType = res.riskType;
+              // this.$store.commit('changeRiskType',res.riskType); //修改登录状态
+              // this.$store.commit('setCustName',res.user.custfullname); //修改登录状态
+              // this.title_name = res.user.custfullname;
+              // this.last_login_time = res.last_login_time_str;
               this.$store.commit('changeAutoLogin','1'); //修改登录状态
-              this.$store.commit('setBankCard',this.bankCard);
+              // this.$store.commit('setBankCard',this.bankCard);
               this.$router.push(this.$route.query.redirect || '/account');  //用来前往本想去的页面,如果没有前一个页面，那么就回到首页
               this.btnLoading = false;
-            }else{
-              this.btnLoading = false;
-              this.$message({
-                showClose: true,
-                type: 'error',
-                customClass:'register-error',
-                center:true,
-                message: res.msg
-              });
-            }
-          }).catch(err => {
-            this.btnLoading = false;
-            //错误的回调
-            // eslint-disable-next-line no-console
-            console.log("访问接口失败"+err);
-          });
+            // }else{
+            //   this.btnLoading = false;
+            //   this.$message({
+            //     showClose: true,
+            //     type: 'error',
+            //     customClass:'register-error',
+            //     center:true,
+            //     message: res.msg
+            //   });
+            // }
+          // }).catch(err => {
+          //   this.btnLoading = false;
+          //   //错误的回调
+          //   // eslint-disable-next-line no-console
+          //   console.log("访问接口失败"+err);
+          // });
           
         } else {
           this.btnLoading = false;
@@ -102,9 +102,6 @@ export default {
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    }
   },
   mounted(){
 
