@@ -16,7 +16,7 @@
           <p>{{loginName}}</p>
           <div v-if="this.$store.state.autoLogin != null">
             <el-button plain round size="medium" @click="goToLogin()">注册</el-button>
-            <el-button type="primary" plain round size="medium" @click="goToRegister()">登录56</el-button>
+            <el-button type="primary" plain round size="medium" @click="goToRegister()">登录55</el-button>
           </div>
           <div v-else>
             <el-button type="primary" plain round size="medium" @click="goToRegister()">我的账户</el-button>
