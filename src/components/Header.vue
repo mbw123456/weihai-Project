@@ -16,16 +16,16 @@
 							<el-button @click="outClick">点击存储为退出状态</el-button>
               <el-button>{{this.$store.state.autoLogin}}</el-button>-->
               您好,
-              <router-link to="/login">去登录</router-link>
-              <router-link to="/register">免费注册</router-link>
-              <router-link to="/register" style="color:#606266;">帮助中心</router-link>
+              <router-link to="/login">去登录</router-link>|
+              <router-link to="/register">免费注册</router-link>|
+              <router-link to="/register">帮助中心</router-link>
               <span>
                 <i class="el-icon-phone"></i>咨询热线：1500000000
               </span>
             </div>
             <div class="header-top-right" v-else>
-              <router-link to="/account">{{this.$store.state.custName}}mbw</router-link>
-              <router-link to="/register" style="color:#606266;">帮助中心</router-link>
+              <router-link to="/account">{{this.$store.state.custName}}mbw</router-link>|
+              <router-link to="/register">帮助中心</router-link>
               <a @click="outClick">退出</a>
             </div>
           </el-col>
@@ -70,7 +70,6 @@
             :router="true"
             @select="handleSelect"
           >
-            <div>热门需求</div>
             <el-menu-item index="/">首页</el-menu-item>
             <el-menu-item index="/need">找需求</el-menu-item>
             <el-menu-item index="/service">找服务</el-menu-item>
@@ -256,8 +255,8 @@ export default {
 
   .header-top {
     width: 100%;
-    background-color: $color-back-third;
-    border-bottom: 1px solid $color-back-second;
+    background-color: $color-font-first;
+    border-bottom: 1px solid $color-font-first;
 
     .el-row {
       width: 1140px;
@@ -267,11 +266,11 @@ export default {
         height: 30px;
         line-height: 30px;
         font-size: 12px;
-        color: $color-font-second;
+        color: #fff;
 
         span {
           margin: 0 10px;
-          color: $color-back-first;
+          color: #fff;
         }
       }
 
@@ -280,16 +279,14 @@ export default {
         line-height: 30px;
         text-align: right;
         font-size: 12px;
-        color: $color-font-second;
+        color: #fff;
 
         a {
           padding: 3px 10px;
-          border-right: 1px solid $color-back-second;
-          color: red;
+          color: #fff;
 
           &:last-child {
             border: none 0;
-            color: $color-font-second;
           }
           &:hover {
             opacity: 0.5;
@@ -343,7 +340,7 @@ export default {
       .el-menu-item {
         font-size: 16px;
         height: 50px;
-        margin-left: 70px;
+        margin:0 65px;
         line-height: 50px;
       }
       div {
