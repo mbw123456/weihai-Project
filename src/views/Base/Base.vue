@@ -10,7 +10,7 @@
           </el-carousel-item>
         </el-carousel>
         <div class="login-box-left">
-            <p>热门需求</p>
+            <p>热门需求123</p>
             <div v-for="(item,key) in requireTitle" :key="key">
                 <h3>{{item.name}}>></h3>
                 <h4>
@@ -85,7 +85,7 @@
               </h3>
               <div class="box-inner">
                 <div>
-                  <p><span>{{item.money}}</span>万</p>123
+                  <p><span>{{item.money}}</span>万</p>.
                   <h5>计划投入</h5>
                 </div>
                 <div>
