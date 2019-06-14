@@ -355,10 +355,20 @@ export default {
     },
     goToAccount() {
         this.$router.push("/account");
-    }
+    },
+    getList(){
+				this.$httpGet("/tbRegisterUser/userList").then(res => {
+					console.log(res);
+				// eslint-disable-next-line no-unused-vars
+				}).catch(err => {
+					//错误的回调
+					// eslint-disable-next-line no-console
+					console.log("访问接口失败");
+				});
+			}
   },
   mounted() {
-
+    this.getList();
   },
 };
 </script>

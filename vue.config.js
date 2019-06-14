@@ -3,6 +3,7 @@ const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
 
 module.exports = {
   publicPath: '/',
+  
   configureWebpack: {  //骨架屏配置
     plugins: [
       new SkeletonWebpackPlugin({
@@ -31,14 +32,24 @@ module.exports = {
   },
   
   
-  
+  lintOnSave: process.env.NODE_ENV === 'development',
   devServer: {
     open: true, // 启动服务后是否打开浏览器
     host: '0.0.0.0',
     port: 80, // 服务端口
     hotOnly: false,
     //proxy: null, // 设置代理
-    proxy: null,
+    proxy: {
+      // change xxx-api/login => mock/login
+      // detail: https://cli.vuejs.org/config/#devserver-proxy
+      [process.env.VUE_APP_BASE_API]: {
+        target: `http://192.168.16.56:8080/manage_api`,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
+      }
+    },
     // {
       // '/api': {
       //   target: 'http://www.haojiyoujijin.com/hjy_app/api',  // target host

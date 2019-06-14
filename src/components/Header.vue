@@ -193,14 +193,6 @@ export default {
     // console.log(this.$route.matched[1].path);
     // this.activeIndex=this.$route.matched[1].path;
     //this.restaurants = this.loadAll();
-    this.$httpGet("/index/compsList")
-      .then(res => {
-        this.compsList = res.compsList;
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.log("访问接口失败" + err);
-      });
   },
   computed: {
     onRoutes() {
