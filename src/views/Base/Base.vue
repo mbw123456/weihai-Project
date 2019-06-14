@@ -85,7 +85,7 @@
               </h3>
               <div class="box-inner">
                 <div>
-                  <p><span>{{item.money}}</span>万</p>
+                  <p><span>{{item.money}}</span>万</p>123
                   <h5>计划投入</h5>
                 </div>
                 <div>
