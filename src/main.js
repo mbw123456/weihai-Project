@@ -43,3 +43,6 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+const API_PATH=window.location.origin+process.env.VUE_APP_BASE_API;
+Vue.prototype.API_PATH = API_PATH;
