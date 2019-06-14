@@ -19,9 +19,9 @@ export default new Router({
 					// redirect:'/home/base',
 				},
 				{
-					path: 'need',
-					name: 'need',
-					component: () => import( /* webpackChunkName: "shop" */ '@/views/Need/Need.vue'),
+					path: 'project',
+					name: 'project-index',
+					component: () => import( /* webpackChunkName: "shop" */ '@/views/Project/Index.vue'),
 				},
 				{
 					path: 'service',

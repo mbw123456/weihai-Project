@@ -71,7 +71,7 @@
             @select="handleSelect"
           >
             <el-menu-item index="/">首页</el-menu-item>
-            <el-menu-item index="/need">找需求</el-menu-item>
+            <el-menu-item index="/project">找项目</el-menu-item>
             <el-menu-item index="/service">找服务</el-menu-item>
             <el-menu-item index="/case">成功案例</el-menu-item>
             <el-menu-item index="/account">个人中心</el-menu-item>
@@ -201,12 +201,12 @@ export default {
       if (this.$route.name == "") {
         return "/";
       } else if (
-        this.$route.name == "need" ||
+        this.$route.name == "project-index" ||
         this.$route.name == "funddetails" ||
         this.$route.name == "companydetails" ||
         this.$route.name == "fundAnno"
       ) {
-        return "/need";
+        return "/project";
       } else if (
         this.$route.name == "service"
       ) {
