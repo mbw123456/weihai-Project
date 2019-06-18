@@ -72,8 +72,8 @@
           >
             <el-menu-item index="/">首页</el-menu-item>
             <el-menu-item index="/project">找项目</el-menu-item>
+            <el-menu-item index="/expert">找专家</el-menu-item>
             <el-menu-item index="/service">找服务</el-menu-item>
-            <el-menu-item index="/case">成功案例</el-menu-item>
             <el-menu-item index="/account">个人中心</el-menu-item>
           </el-menu>
         </div>
@@ -172,15 +172,11 @@ export default {
     outClick() {
       this.$store.commit("changeAutoLogin", "0");
       if (
-        this.$route.name == "asset" ||
-        this.$route.name == "plan" ||
-        this.$route.name == "detail" ||
-        this.$route.name == "invite" ||
-        this.$route.name == "set" ||
-        this.$route.name == "risk" ||
-        this.$route.name == "bankcard" ||
-        this.$route.name == "purchase" ||
-        this.$route.name == "invest"
+        this.$route.name == "account-project" ||
+        this.$route.name == "account-attme" ||
+        this.$route.name == "account-myatt" ||
+        this.$route.name == "account-message" ||
+        this.$route.name == "account-set"
       ) {
         this.$router.push("/");
       }
@@ -202,32 +198,23 @@ export default {
         return "/";
       } else if (
         this.$route.name == "project-index" ||
-        this.$route.name == "funddetails" ||
-        this.$route.name == "companydetails" ||
-        this.$route.name == "fundAnno"
+        this.$route.name == "project-detail"
       ) {
         return "/project";
       } else if (
-        this.$route.name == "service"
+        this.$route.name == "service-index"
       ) {
         return "/service";
       } else if (
-        this.$route.name == "caseAll" ||
-        this.$route.name == "about_help" ||
-        this.$route.name == "about_optionGuide" ||
-        this.$route.name == "about_complain"
+        this.$route.name == "expert-index"
       ) {
-        return "/case";
+        return "/expert";
       } else if (
-        this.$route.name == "asset" ||
-        this.$route.name == "plan" ||
-        this.$route.name == "detail" ||
-        this.$route.name == "invite" ||
-        this.$route.name == "set" ||
-        this.$route.name == "risk" ||
-        this.$route.name == "bankcard" ||
-        this.$route.name == "purchase" ||
-        this.$route.name == "invest"
+        this.$route.name == "account-project" ||
+        this.$route.name == "account-attme" ||
+        this.$route.name == "account-myatt" ||
+        this.$route.name == "account-message" ||
+        this.$route.name == "account-set"
       ) {
         return "/account";
       } else {

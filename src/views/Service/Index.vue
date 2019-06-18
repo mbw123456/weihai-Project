@@ -1,15 +1,15 @@
 <template>
-  <div class="project">
+  <div class="service">
     <!-- 这是根节点 -->
     <div class="shop-search">
       <div class="shop-search-inner">
         <div class="search-box">
 
           <el-row class="search-part">
-            <el-col :span="2" class="search-title">所在地区:</el-col>
+            <el-col :span="2" class="search-title">服务主体:</el-col>
             <el-col :span="22">
               <el-radio-group v-model="radio2" size="medium" @change="changeFundType">
-                <el-radio-button :label="item" border v-for="(item,key) in dataArea" :key="key">
+                <el-radio-button :label="item" border v-for="(item,key) in dataService" :key="key">
                   {{item}}
                   <b>/</b>
                 </el-radio-button>
@@ -17,20 +17,9 @@
             </el-col>
           </el-row>
 
-          <el-row class="search-part">
-            <el-col :span="2" class="search-title">发布时间:</el-col>
-            <el-col :span="22">
-              <el-radio-group v-model="radio1" size="medium" @change="changeFundType">
-                <el-radio-button :label="item" border v-for="(item,key) in dataTime" :key="key">
-                  {{item}}
-                  <b>/</b>
-                </el-radio-button>
-              </el-radio-group>
-            </el-col>
-          </el-row>
 
           <el-row class="search-part industry">
-            <el-col :span="2" class="search-title">所属行业:</el-col>
+            <el-col :span="2" class="search-title">专长领域:</el-col>
             <el-col :span="22">
               <el-radio-group v-model="radio0" size="medium" @change="changeFundType">
                 <el-radio-button :label="item" border v-for="(item,key) in dataType" :key="key">
@@ -55,17 +44,6 @@
               </el-scrollbar>
           </div>
 
-          <el-row class="search-part">
-            <el-col :span="2" class="search-title">项目状态:</el-col>
-            <el-col :span="22">
-              <el-radio-group v-model="radio4" size="medium" @change="changeFundType">
-                <el-radio-button :label="item" border v-for="(item,key) in dataStatus" :key="key">
-                  {{item}}
-                  <b>/</b>
-                </el-radio-button>
-              </el-radio-group>
-            </el-col>
-          </el-row>
           
         </div>
       </div>
@@ -73,65 +51,72 @@
 
     <div class="project-list">
       <div class="project-list-inner">
-				<el-table
-					v-loading="loading"
-					stripe
-					:data="tableData"
-					style="width: 100%;"
-					>
-<!-- {
-          title: "船舶建造于设计艺术",
-          desc: "新材料/高分子材料",
-          address: "环翠区",
-          day: "今天发布",
-          button: "详情"
-        }, -->
-					<el-table-column
-						label="基金名称"
-						width="400">
-            <template slot-scope="scope">
-							<el-button @click.stop="jumpToDetail(scope.$index)" type="text" size="">{{scope.row.title}}</el-button>
-						</template>
-					</el-table-column>
+        <el-row>
+          <el-col :span="18">
+            <el-table
+              v-loading="loading"
+              stripe
+              :data="tableData"
+              style="width: 100%; border-top:2px solid #3a72e1"
+              >
+              <el-table-column
+                label="姓名"
+                width="300">
+                <template slot-scope="scope">
+                  <el-button type="text" size="">{{scope.row.title}}</el-button>
+                </template>
+              </el-table-column>
 
-					<el-table-column
-						prop="desc"
-						label="所属行业"
-						>
-					</el-table-column>
+              <el-table-column
+                prop="desc"
+                label="所属机构"
+                >
+              </el-table-column>
 
-          <el-table-column
-						prop="address"
-						label="所在地区"
-						>
-					</el-table-column>
+              <el-table-column
+                prop="address"
+                label="专长领域"
+                >
+              </el-table-column>
 
-					<el-table-column
-						prop="day"
-						label="发布时间"
-						>
-					</el-table-column>
+              <el-table-column
+                prop="day"
+                label="工作经验"
+                >
+              </el-table-column>
 
-					<el-table-column
-						label="操作"
-						width="150">
-						<template slot-scope="scope">
-							<el-button @click.stop="jumpTo(scope.row)" type="text" size="">详情</el-button>
-						</template>
-					</el-table-column>
-				</el-table>
-				
+              <el-table-column
+                label="操作"
+                width="100">
+                <template slot-scope="scope">
+                  <el-button @click.stop="jumpTo(scope.row)" type="text" size="">详情</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
 
-				<el-pagination
-					style="width: 1140px; margin: 30px auto; text-align: center;"
-					background
-					@size-change="handleSizeChange"
-					@current-change="handleCurrentChange"
-					:current-page="cur_page"
-					:page-size="10"
-					layout="total, prev, pager, next, jumper"
-					:total="totalnum">
-				</el-pagination>
+            <el-pagination
+              style="width: 100%; margin: 30px auto; text-align: center;"
+              background
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="cur_page"
+              :page-size="10"
+              layout="total, prev, pager, next, jumper"
+              :total="totalnum">
+            </el-pagination>
+          </el-col>
+
+          <el-col :span="5" :offset="1">
+            <div class="hot">
+              <h3>热门推荐</h3>
+              <el-card v-for="(item,key) in 5" :key="key">
+                <p>王永初<span>专家<img src="@/assets/img/indexElse_11.png" alt=""></span></p>
+                <h5><i class="el-icon-location-information"></i>哈尔滨工业大学</h5>
+              </el-card>
+            </div>
+          </el-col>
+        </el-row>
+          
 				
       </div>
     </div>
@@ -142,10 +127,9 @@
 </template>
 
 <script>
-// import VueEvent from '@/model/VueEvent.js'
 
 export default {
-  name: "project-index",
+  name: "service-index",
   //   components:{
   // 	  VueEvent,
   //   },
@@ -176,15 +160,10 @@ export default {
       dataTime: ["全部", "三天内发布", "一周内发布", "一月内发布"],
       //所在地区
       radio2: "全部",
-      dataArea: [
+      dataService: [
         "全部",
-        "环翠区",
-        "乳山市",
-        "文登区",
-        "荣成市",
-        "临港区",
-        "高区",
-        "经区"
+        "专家",
+        "高技能人才",
       ],
       radio3: "全部",
       dataArea: [
@@ -333,15 +312,6 @@ export default {
     changeFundType(item) {
       console.log(item);
     },
-    jumpToDetail(index){
-      // console.log(a);
-      this.$router.push({
-        path: "projectDetail",
-        query: {
-          code: index,
-        }
-      });
-    }
     //页面跳转加参数
     // openDetails(row, column, event) {
     //   this.pramfundtype = row.pramfundtype;
@@ -401,7 +371,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import "@/assets/styles/vars.scss";
-.project {
+.service {
   border-top: 1px solid $color-back-second;
   // min-height: 900px;
   .shop-search {
@@ -467,7 +437,47 @@ export default {
     .project-list-inner {
       width: 1140px;
       margin: 0 auto;
-      border-top: 2px solid $color-primary;
+
+      .hot{
+        background-color: #fff;
+        border-top: 2px solid $color-primary;
+        padding-bottom: 15px;
+
+        h3{
+          color: $color-primary;
+          padding: 0px 15px;
+          font-size: 15px;
+          line-height: 47px;
+          border-bottom: 1px solid $color-back-second;
+        }
+        .el-card{
+          margin: 15px 15px;
+
+          p{
+            color: $color-primary;
+            span{
+              font-size: 12px;
+              padding: 3px 10px;
+              background-color: $color-primary-second;
+              margin-left: 5px;
+              vertical-align: 2px;
+              border-radius: 4px;
+              img{
+                width: 12px;
+                vertical-align: -3px;
+              }
+            }
+          }
+          h5{
+            padding-top: 5px;
+            font-weight: normal;
+            color: $color-font-third;
+            font-size: 14px;
+
+          }
+        }
+        
+      }
 
     }
   }
@@ -482,7 +492,7 @@ export default {
 	overflow: scroll;
 	overflow-x:auto;
 }
-.project {
+.service {
   .el-radio-button {
     position: relative;
     b {

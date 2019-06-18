@@ -6,27 +6,17 @@
 				<div class="account-leftbox">
 
 					<div class="account-routebtn">
-						<p><span class="el-icon-user"></span>个人中心</p>
-						<router-link :to="{ path: '/account'}" tag="li">基金资产<i class="el-icon-caret-right"></i></router-link>
 
-						<p><span class="el-icon-document"></span>需求管理</p>
-						<router-link :to="{ path: '/account/plan'}" tag="li">我发布的<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/detail'}" tag="li">我参与的<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/invite'}" tag="li">需求跟踪<i class="el-icon-caret-right"></i></router-link>
-						
-						<p><span class="el-icon-edit-outline"></span>服务管理</p>
-						<router-link :to="{ path: '/account/set'}" tag="li">我的服务<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/set1'}" tag="li">服务跟踪<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account'}" tag="p"><span class="el-icon-document"></span>我的项目<i class="el-icon-caret-right"></i></router-link>
 
-						<p><span class="el-icon-star-off"></span>成功案例</p>
-						<router-link :to="{ path: '/account/plan1'}" tag="li">我的案例<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/detail1'}" tag="li">申请案例<i class="el-icon-caret-right"></i></router-link>
+						<h4><span class="el-icon-star-off"></span>关注中心</h4>
+						<router-link :to="{ path: '/account/attentionMe'}" tag="li">关注我的<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/myAttention'}" tag="li">我关注的<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/message'}" tag="p"><span class="el-icon-chat-dot-square"></span>消息中心<i class="el-icon-caret-right"></i></router-link>
 						
-						<p><span class="el-icon-setting"></span>个人设置</p>
-						<router-link :to="{ path: '/account/set2'}" tag="li">个人资料<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/set3'}" tag="li">名片管理<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/set4'}" tag="li">认证管理<i class="el-icon-caret-right"></i></router-link>
-						<router-link :to="{ path: '/account/set5'}" tag="li">密码管理<i class="el-icon-caret-right"></i></router-link>
+						<router-link :to="{ path: '/account/set'}" tag="p"><span class="el-icon-s-tools"></span>账户设置<i class="el-icon-caret-right"></i></router-link>
+						<div style="text-align:center; padding:20px; margin-top:50px;"><img style="width:100%;" src="@/assets/img/weihai-center_16.png" alt=""></div>
+						
 					</div>
 				</div>
 			</el-col>
@@ -130,22 +120,38 @@ export default {
 			margin: 0 auto;
 
 			.account-leftbox{
-				background-color: #fff;
-				border-radius: 5px;
-				padding:0 15px;
+				background-color: $color-primary-second;
+				border-top: 2px solid $color-primary;
 				overflow: hidden;
 				padding-bottom: 20px;
+				box-shadow: 0px 0px 10px rgba(#000, .2);
 			
 				.account-routebtn{
 					
+					h4{
+						font-size: 15px;
+						padding: 15px 0;
+						padding-left: 40px;
+						font-weight: normal;
+						margin-top: 0 !important;
+						color: $color-primary;
+						
+
+						span{
+							font-size: 21px;
+							margin-right: 10px;
+							vertical-align: -2px;
+						}
+					}
 					p{
-						padding: 10px 0;
+						padding: 15px 0;
 						text-align: left;
-						font-size: 17px;
-						padding-left: 20px;
-						border-top: 1px solid $color-back-first;
-						padding-top: 20px;
-						margin-top: 15px;
+						font-size: 15px;
+						padding-left: 40px;
+						margin-top: 0 !important;
+						cursor: pointer;
+						color: $color-primary;
+						
 
 						&:first-child{
 							border: none 0;
@@ -154,16 +160,31 @@ export default {
 
 						span{
 							font-size: 21px;
-							color: $color-font-third;
 							margin-right: 10px;
 							vertical-align: -2px;
+						}
+						i{
+							font-size: 17px;
+							color: $color-primary-second;
+							float: right;
+							line-height: 22px;
+							margin-right: 15px;
+						}
+						&:hover{
+							color: $color-primary;
+						}
+						&:hover span{
+							color: $color-primary;
+						}
+						&:hover i{
+							color: $color-primary;
 						}
 					}
 					li{
 						line-height: 35px;
-						padding: 0 15px;
-						padding-left: 50px;
-						color: $color-font-third;
+						padding: 5px 15px;
+						padding-left: 80px;
+						color: #91b3f5;
 						font-size: 14px;
 						cursor: pointer;
 						box-sizing: border-box;
@@ -176,12 +197,13 @@ export default {
 						}
 						i{
 							font-size: 17px;
-							color: #fff;
+							color: $color-primary-second;
 							float: right;
 							line-height: 35px;
 						}
 						&:hover{
 							color: $color-primary;
+							background-color: #fff;
 						}
 						&:hover span{
 							color: $color-primary;
@@ -192,8 +214,7 @@ export default {
 					}
 					.router-link-exact-active{
 						color:$color-primary;
-						background-color:$color-primary-second;
-
+						background-color:#fff;
 						span{
 							color: $color-primary;
 						}

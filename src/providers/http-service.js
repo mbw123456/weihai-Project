@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from 'axios';
-import router from '../router'
+import router from '@/router'
 import store from '../store'
 // let axiosBaseUrl
 // if(process.env.NODE_ENV == 'production'){

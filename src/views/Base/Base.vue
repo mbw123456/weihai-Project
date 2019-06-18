@@ -85,7 +85,7 @@
               </h3>
               <div class="box-inner">
                 <div>
-                  <p><span>{{item.money}}</span>万</p>.
+                  <p><span>{{item.money}}</span>万</p>
                   <h5>计划投入</h5>
                 </div>
                 <div>
@@ -151,7 +151,7 @@
               </p>
 
               <div v-for="(item,key) in 5" :key="key">
-                <el-button type="text">加大高端制造业及技术改造投资</el-button>
+                <el-button type="text" @click="goToDetail(key)">加大高端制造业及技术改造投资</el-button>
                 <span>2019-05-12</span>
               </div>
             </div>
@@ -347,15 +347,24 @@ export default {
     handleClick(tab, event) {
         console.log(tab, event);
     },
-    goToLogin() {
-        this.$router.push("/login");
+    goToDetail(index) {
+      console.log(index);
+        this.$router.push({
+        name: "base-detail",
+        params: {
+          id: index,
+        }
+      });
     },
-    goToRegister() {
-        this.$router.push("/register");
-    },
-    goToAccount() {
-        this.$router.push("/account");
-    },
+    // goToLogin() {
+    //     this.$router.push("/login");
+    // },
+    // goToRegister() {
+    //     this.$router.push("/register");
+    // },
+    // goToAccount() {
+    //     this.$router.push("/account");
+    // },
     getList(){
 				this.$httpGet("/tbRegisterUser/userList").then(res => {
 					console.log(res);
@@ -368,7 +377,7 @@ export default {
 			}
   },
   mounted() {
-    this.getList();
+    // this.getList();
   },
 };
 </script>
