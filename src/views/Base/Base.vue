@@ -2,71 +2,172 @@
   <div class="base">
     <!-- 这是根节点 -->
     <!-- banner -->
-    <div>
-      <el-carousel height="540px">
-        <el-carousel-item v-for="(item,key) in bannerList" :key="key">
-          <div class="banner-box" :style="{backgroundImage: 'url('+publicPath+'img/' + item+ ')'}"></div>
-        </el-carousel-item>
-      </el-carousel>
-      <div class="login-box">
-        <div class="login-picBox">
-          <div class="login-pic">
-            <img :src="loginPic">
-          </div>
-          <p>{{loginName}}</p>
-          <div v-if="this.$store.state.autoLogin != null">
-            <el-button plain round size="medium" @click="goToLogin()">注册</el-button>
-            <el-button type="primary" plain round size="medium" @click="goToRegister()">登录55</el-button>
-          </div>
-          <div v-else>
-            <el-button type="primary" plain round size="medium" @click="goToRegister()">我的账户</el-button>
+    <el-row  style="width:1140px; margin:20px auto; ">
+      <el-col :span="19" style="padding-right:20px;">
+        <el-carousel height="500px">
+          <el-carousel-item v-for="(item,key) in bannerList" :key="key">
+            <div class="banner-box" :style="{backgroundImage: 'url('+publicPath+'img/' + item+ ')'}"></div>
+          </el-carousel-item>
+        </el-carousel>
+        <div class="login-box-left">
+            <p>热门需求</p>
+            <div v-for="(item,key) in requireTitle" :key="key">
+                <h3>{{item.name}}>></h3>
+                <h4>
+                    <a v-for="(item,num) in item.desc" :key="num">{{item}}</a>
+                </h4>
+            </div>
+        </div>
+      </el-col>
+      <el-col :span="5">
+        <div class="login-box-right">
+          <el-card>
+            <img src="@/assets/img/indexElse_03.png" alt="">
+            <span>技术共享</span>
+          </el-card>
+          <el-card>
+            <img src="@/assets/img/indexElse_06.png" alt="">
+            <span>服务转化</span>
+          </el-card>
+          <el-card>
+            <img src="@/assets/img/indexElse_08.png" alt="">
+            <span>免费对接</span>
+          </el-card>
+          <div class="login-box-phone">
+            <h4><i class="el-icon-phone"></i>0411-88892323</h4>
+            <h5>热线服务时间</h5>
+            <h6>8:30~17:00工作日</h6>
           </div>
         </div>
+      </el-col>
+    </el-row>
 
-        <div class="login-box-bar">
-          <p>平台指数</p>
-          <h3>
-            {{platform_num}}
-            <span>位</span>
-          </h3>
-          <h4>累计专家数量</h4>
-        </div>
-        <el-row :gutter="10">
-          <el-col class="login-box-icon" :span="8">
-            <div>
-              <img src="@/assets/img/weihai_index2_03.png">
-            </div>
-            <p>技术共享</p>
+    <div class="index-topIcon">
+      <div style="width:1140px;margin:0 auto;">
+        <el-row>
+          <el-col :span="6">
+            <img src="@/assets/img/indexElse_11.png" alt="">
+            <h4>专家 <span>{{val}}</span> 位</h4>
           </el-col>
-          <el-col class="login-box-icon" :span="8">
-            <div style="background-color:#fbe3ce;">
-              <img src="@/assets/img/weihai_index2_05.png">
-            </div>
-            <p>服务转化</p>
+          <el-col :span="6">
+            <img src="@/assets/img/indexElse_13.png" alt="">
+            <h4>高技能人才 <span>{{val}}</span> 位</h4>
           </el-col>
-          <el-col class="login-box-icon" :span="8">
-            <div style="background-color:#d8d4f6;">
-              <img src="@/assets/img/weihai_index2_07.png">
-            </div>
-            <p>免费对接</p>
+          <el-col :span="6">
+            <img src="@/assets/img/indexElse_15.png" alt="">
+            <h4>企业 <span>{{val}}</span> 家</h4>
+          </el-col>
+          <el-col :span="6">
+            <img src="@/assets/img/indexElse_17.png" alt="">
+            <h4>科研机构 <span>{{val}}</span> 家</h4>
           </el-col>
         </el-row>
-        <div class="login-box-contact">
-          <img src="@/assets/img/weihai_index1_12.png">
-          <p>热线服务时间：周一至周五 8:30-17:00</p>
-        </div>
-      </div>
-      <div class="login-box-left">
-          <div v-for="(item,key) in requireTitle" :key="key">
-              <h3>{{item.name}}>></h3>
-              <h4>
-                  <a v-for="(item,num) in item.desc" :key="num">{{item}}</a>
-              </h4>
-          </div>
       </div>
     </div>
 
-    <div class="base-bigTitle">
+    <div class="base-newNeed">
+      <div style="width:1140px;margin:0 auto;">
+        <p class="base-newNeed-title"><span>最新需求</span></p>
+
+        <el-row class="base-newNeed-inner" :gutter="20">
+          <el-col v-for="(item,key) in newBoxList" :key="key" :span="6">
+            <div class="box">
+              <h6>{{item.status}}</h6>
+              <h4>{{item.title}}</h4>
+              <h3>
+                <el-tag
+                  size="small"
+                  v-for="item1 in item.tags"
+                  :key="item1"
+                  type="warning">
+                  {{item1}}
+                </el-tag>
+              </h3>
+              <div class="box-inner">
+                <div>
+                  <p><span>{{item.money}}</span>万</p>
+                  <h5>计划投入</h5>
+                </div>
+                <div>
+                  <p><span>{{item.day}}</span>天</p>
+                  <h5>解决期限</h5>
+                </div>
+              </div>
+              <el-button type="primary" round>查看详情</el-button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
+
+
+    <div class="base-newNeed-two">
+      <div style="width:1140px;margin:0 auto;">
+        <p class="base-newNeed-title"><span>专家推荐</span></p>
+
+        <el-row class="base-newNeed-inner" :gutter="20">
+          <el-col v-for="(item,key) in newBoxList" :key="key" :span="12">
+            <el-card>
+              <el-row>
+                <el-col :span="10" class="imgbox">
+                  <img src="@/assets/img/indexElse_24.png" alt="">
+                </el-col>
+                <el-col :span="13" :offset="1">
+                  <p>庞博士<span>专家<img src="@/assets/img/indexElse_11.png" alt=""></span></p>
+                  <h4>工作经验<span>11</span>年</h4>
+                  <h4>擅长行业<span>自动化</span></h4>
+                  <h5>所属机构：<span>烟台东方威智电子科技有限公司</span></h5>
+                </el-col>
+              </el-row>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
+
+    <div class="base-newNeed-three">
+      <div style="width:1140px;margin:0 auto;">
+        <p class="base-newNeed-title"><span>科研机构</span></p>
+
+        <el-row :gutter="20">
+          <el-col v-for="(item,key) in 8" :key="key" :span="6">
+            <div class="box">
+              <img src="@/assets/img/account-back_03.png" alt="">
+              <span>方硕电子科技</span>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
+
+    <div class="base-newNeed-fourth">
+      <div style="width:1140px;margin:0 auto;">
+        <el-row :gutter="50">
+          <el-col :span="12">
+            <div class="box">
+              <p class="base-newNeed-title">
+                <span>政策咨询</span>
+                <el-button type="text">查看更多>></el-button>
+              </p>
+
+              <div v-for="(item,key) in 5" :key="key">
+                <el-button type="text" @click="goToDetail(key)">加大高端制造业及技术改造投资</el-button>
+                <span>2019-05-12</span>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="box">
+              <p class="base-newNeed-title"><span>科研机构</span></p>
+            </div>
+          </el-col>
+        </el-row>
+        
+
+      </div>
+    </div>
+
+    <!-- <div class="base-bigTitle">
         <h2>最新<b>需求</b></h2>
         <h4><span>latest demand</span></h4>
     </div>
@@ -107,9 +208,9 @@
             <el-tab-pane label="海洋生物" name="third">海洋生物</el-tab-pane>
             <el-tab-pane label="自动化" name="fourth">自动化</el-tab-pane>
         </el-tabs>
-    </div>
+    </div> -->
 
-    <div class="base-bigTitle">
+    <!-- <div class="base-bigTitle">
         <h2>成功<b>案例</b></h2>
         <h4><span>success case</span></h4>
     </div>
@@ -142,7 +243,7 @@
                 </el-row>
             </el-col>
         </el-row>
-    </div>
+    </div> -->
 
 
 
@@ -161,8 +262,10 @@ export default {
       //获取public路径
       publicPath: process.env.BASE_URL,
       loading: true,
+      val:234,
+      tags:[1,2,3,4],
       //banner
-      bannerList: ["weihai_index_06.png"],
+      bannerList: ["weihai_index_06.png","weihai_index_06.png"],
       loginPic: "/img/weihai_index1_08.png",
       loginName: "Hi，您好",
       platform_num: "42245",
@@ -184,54 +287,38 @@ export default {
             desc:['船体下料','动力装置','舾装设备','推进装置']
         },
         { 
-            name: "精密机械", 
-            desc:['数控机床','数控车床','数控磨床','数控电加工机床']
-        },
-        { 
             name: "其他", 
         },
       ],
       activeName: 'first',
       newBoxList:[
           { 
-            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
-            desc:"企业",
-            name:"赵**",
-            phone:"13112445671",
-            way:"面议",
-            address:"环翠区",
-            day:"今天发布",
-            button:"立即参与"
+            title: "金属表面喷涂技术", 
+            tags:['自动化','强粘和性','需耐磨蚀'],
+            money:35,
+            day:90,
+            status:'进行中'
           },
           { 
-            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
-            desc:"个人",
-            name:"赵**",
-            phone:"13112445671",
-            way:"面议",
-            address:"环翠区",
-            day:"今天发布",
-            button:"立即参与"
+            title: "金属表面喷涂技术", 
+            tags:['自动化','强粘和性','需耐磨蚀'],
+            money:35,
+            day:90,
+            status:'进行中'
           },
           { 
-            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
-            desc:"企业",
-            name:"赵**",
-            phone:"13112445671",
-            way:"面议",
-            address:"环翠区",
-            day:"今天发布",
-            button:"立即参与"
+            title: "金属表面喷涂技术", 
+            tags:['自动化','强粘和性','需耐磨蚀'],
+            money:35,
+            day:90,
+            status:'进行中'
           },
           { 
-            title: "新材料新材料新材料新材料新材料新材料新材料新材料新材料新材料", 
-            desc:"企业",
-            name:"赵**",
-            phone:"13112445671",
-            way:"面议",
-            address:"环翠区",
-            day:"今天发布",
-            button:"立即参与"
+            title: "金属表面喷涂技术", 
+            tags:['自动化','强粘和性','需耐磨蚀'],
+            money:35,
+            day:90,
+            status:'进行中'
           },
       ],
       newCaseList:[
@@ -260,18 +347,37 @@ export default {
     handleClick(tab, event) {
         console.log(tab, event);
     },
-    goToLogin() {
-        this.$router.push("/login");
+    goToDetail(index) {
+      console.log(index);
+        this.$router.push({
+        name: "base-detail",
+        params: {
+          id: index,
+        }
+      });
     },
-    goToRegister() {
-        this.$router.push("/register");
-    },
-    goToAccount() {
-        this.$router.push("/account");
-    }
+    // goToLogin() {
+    //     this.$router.push("/login");
+    // },
+    // goToRegister() {
+    //     this.$router.push("/register");
+    // },
+    // goToAccount() {
+    //     this.$router.push("/account");
+    // },
+    getList(){
+				this.$httpGet("/tbRegisterUser/userList").then(res => {
+					console.log(res);
+				// eslint-disable-next-line no-unused-vars
+				}).catch(err => {
+					//错误的回调
+					// eslint-disable-next-line no-console
+					console.log("访问接口失败");
+				});
+			}
   },
   mounted() {
-
+    // this.getList();
   },
 };
 </script>
@@ -283,134 +389,52 @@ export default {
   position: relative;
 
   .banner-box {
-    height: 540px;
+    height: 500px;
     background-position: center top;
-    background-repeat: repeat-x;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
-  .login-box {
+  .login-box-right {
     box-sizing: border-box;
-    position: absolute;
-    width: 280px;
-    height: 540px;
-    background-color: #fff;
-    right: 50%;
-    margin-right: -570px;
-    top: 0px;
-    z-index: 101;
-    border-top: 1px solid $color-back-first;
-    // box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.3);
-    padding: 15px 25px;
-
-    .login-picBox {
-      text-align: center;
-
-      .login-pic {
-        width: 75px;
-        height: 75px;
-        margin: 0 auto;
-        border-radius: 50%;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-          height: 100%;
-        }
+    .el-card{
+      margin-bottom: 15px;
+      img{
+        width:50px;
       }
-      p {
-        font-size: 14px;
+      span{
+        float: right;
+        font-size: 17px;
         color: $color-font-second;
-        margin-bottom: 10px;
-        margin-top: 5px;
-      }
-      .el-button {
-        margin: 0 10px;
+        line-height: 50px;
+        padding-right: 20px;
       }
     }
-    .login-box-bar {
-      height: 120px;
-      background-color: $color-back-second;
-      margin: 15px 0;
-      border-radius: 5px;
-      overflow: hidden;
+    .login-box-phone{
+      box-sizing: border-box;
+      border: 1px solid #eee;
+      height: 170px;
+      background-color: #fff;
+      width: 100%;
+      padding: 15px;
 
-      p {
-        position: relative;
-        text-align: center;
-        margin-top: 15px;
-        color: $color-font-second;
-
-        &::before {
-          content: "";
-          position: absolute;
-          display: block;
-          width: 40px;
-          left: 20px;
-          top: 10px;
-          height: 1px;
-          background-color: $color-primary;
-        }
-        &::after {
-          content: "";
-          position: absolute;
-          display: block;
-          width: 40px;
-          right: 20px;
-          top: 10px;
-          height: 1px;
-          background-color: $color-primary;
-        }
+      h4{
+        font-size: 20px;
+        font-style: italic;
+        color: $color-primary;
+        padding: 20px 0;
+        border-bottom: 1px dotted $color-primary;
       }
-      h3 {
-        text-align: center;
-        font-size: 22px;
-        margin-top: 15px;
-
-        span {
-          font-weight: normal;
-          font-size: 14px;
-          color: $color-font-third;
-          margin-left: 5px;
-        }
-      }
-      h4 {
+      h5{
+        padding-top: 20px;
+        font-size: 16px;
+        color: $color-primary;
         font-weight: normal;
-        color: $color-font-third;
-        font-size: 14px;
-        text-align: center;
-        margin-top: 10px;
       }
-    }
-    .login-box-icon {
-      text-align: center;
-      padding-top: 5px;
-
-      div {
-        text-align: center;
-        box-sizing: border-box;
-        width: 50px;
-        padding-top: 10px;
-        height: 50px;
-        margin: 0 auto;
-        border-radius: 50%;
-        background-color: #d3e0f7;
-      }
-      p {
+      h6{
         font-size: 14px;
-        margin-top: 5px;
         color: $color-font-second;
-      }
-    }
-    .login-box-contact {
-      padding-top: 5px;
-
-      img {
-        width: 100%;
-      }
-      p {
-        font-size: 13px;
-        color: $color-font-third;
-        text-align: center;
+        font-weight: normal;
       }
     }
   }
@@ -418,7 +442,8 @@ export default {
     box-sizing: border-box;
     position: absolute;
     width: 220px;
-    height: 540px;
+    height: 500px;
+    overflow: hidden;
     background-color:$color-font-first;
     left: 50%;
     margin-left: -570px;
@@ -426,11 +451,21 @@ export default {
     z-index: 101;
     // box-shadow: 0 5px 15px rgba($color: #000000, $alpha: 0.3);
     padding: 15px 25px;
-
+    opacity: .9;
+    p{
+      width: 150px;
+      margin: 0 auto;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 50px;
+      background-color: $color-primary;
+      color: #fff;
+    }
     div{
         padding-bottom: 15px;
         h3{
-            font-size: 14px;
+            font-size: 16px;
             color: #fff;
             font-weight: normal;
             padding-top: 5px;
@@ -463,6 +498,266 @@ export default {
 
 
   }
+  .index-topIcon{
+    width: 100%;
+    padding: 20px 0;
+    margin: 0 auto;
+    background-color: #fff;
+
+    .el-col{
+      text-align: center;
+      h4{
+        color: $color-font-second;
+        font-weight: normal;
+        span{
+          font-size: 25px;
+          color: $color-primary;
+          font-weight: bold;
+          font-style: italic;
+        }
+      }
+    }
+  }
+  .base-newNeed{
+    width: 100%;
+    height: 470px;
+    box-sizing: border-box;
+    padding: 40px 0;
+    background: url(~@/assets/img/weihai-indexback_02.png) no-repeat center center;
+
+    .base-newNeed-title{
+      span{
+        border-bottom: 4px solid $color-primary;
+        font-size: 20px;
+        color: $color-primary;
+        font-weight: bold;
+        padding-bottom: 5px;
+      }
+    }
+    .base-newNeed-inner{
+      text-align: center;
+      margin-top: 40px;
+      .box{
+        background-color: #fff;
+        box-sizing: border-box;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        padding: 15px;
+        padding-bottom: 40px;
+        overflow: hidden;
+        position: relative;
+
+        h6{
+          position: absolute;
+          right:-40px;
+          top:-10px;
+          padding:10px 40px;
+          padding-top: 25px;
+          font-size: 12px;
+          color: $color-primary;
+          background-color: $color-primary-second;
+          transform:rotate(45deg);
+          -ms-transform:rotate(45deg); 	/* IE 9 */
+          -moz-transform:rotate(45deg); 	/* Firefox */
+          -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+          -o-transform:rotate(45deg);
+        }
+        h4{
+          white-space: nowrap; 
+          text-overflow:ellipsis;
+          overflow:hidden; 
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 25px;
+          color: $color-primary;
+          margin-top: 20px;
+          text-align: center;
+        }
+        h3{
+          padding: 10px 0;
+          text-align: center;
+          .el-tag{
+            margin: 0 5px;
+            font-weight: normal;
+          }
+        }
+        .box-inner{
+          overflow: hidden;
+          box-sizing: border-box;
+          padding: 50px 0;
+          div{
+            float: left;
+            width: 50%;
+            text-align: center;
+            color: $color-primary;
+            box-sizing: border-box;
+            
+            &:last-child{
+              border-left: 1px solid #c1cce1;
+            }
+          }
+          p{
+            font-size: 17px;
+            span{
+              font-size: 28px;
+              font-style: italic;
+              margin-right: 5px;
+            }
+          }
+          h5{
+            color: $color-font-third;
+            font-weight: normal;
+          }
+        }
+        .el-button{
+          width: 200px;
+        }
+      }
+    }
+  }
+  .base-newNeed-two{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 0;
+    background-color: #fff;
+
+    .base-newNeed-title{
+      margin-bottom: 40px;
+      span{
+        border-bottom: 4px solid $color-primary;
+        font-size: 20px;
+        color: $color-primary;
+        font-weight: bold;
+        padding-bottom: 5px;
+      }
+    }
+    .el-card{
+      margin-bottom: 15px;
+      .imgbox{
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      p{
+        font-size: 18px;
+        font-weight: bold;
+        color: $color-primary;
+        margin-bottom: 30px;
+        margin-top: 10px;
+
+        span{
+          background-color: $color-primary-second;
+          font-size: 14px;
+          font-weight: normal;
+          padding: 3px 10px;
+          margin-left: 10px;
+          border-radius: 4px;
+          vertical-align: 1px;
+          img{
+            width: 14px;
+            vertical-align: -3px;
+          }
+        }
+      }
+      h4{
+        font-size: 14px;
+        font-weight: normal;
+        color: $color-font-second;
+        margin-bottom: 5px;
+
+        span{
+          margin-left: 15px;
+          font-size: 15px;
+          color: $color-primary;
+          font-weight: bold;
+        }
+      }
+      h5{
+        border-top: 1px dashed $color-primary;
+        font-weight: normal;
+        color: $color-primary;
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+    }
+  }
+
+  .base-newNeed-three{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 0;
+
+    .base-newNeed-title{
+      margin-bottom: 40px;
+      span{
+        border-bottom: 4px solid $color-primary;
+        font-size: 20px;
+        color: $color-primary;
+        font-weight: bold;
+        padding-bottom: 5px;
+      }
+    }
+    .box{
+      width: 100%;
+      background-color: #fff;
+      box-sizing: border-box;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      img{
+        width: 50px;
+        height: 50px;
+      }
+      span{
+        vertical-align: 17px;
+        margin-left: 40px;
+        font-size: 17px;
+        color: $color-primary;
+      }
+    }
+  }
+
+  .base-newNeed-fourth{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 0;
+    background-color: #fff;
+
+    .base-newNeed-title{
+      margin-bottom: 20px;
+      border-bottom: 2px solid $color-primary;
+      padding-bottom: 10px;
+      span{
+        
+        font-size: 20px;
+        color: $color-primary;
+        font-weight: bold;
+        
+      }
+      .el-button{
+        float: right;
+      }
+    }
+    .box{
+      div{
+        .el-button{
+          padding: 5px 0;
+          font-size: 15px;
+        }
+        span{
+          float: right;
+          font-size: 15px;
+          color: $color-font-third;
+          line-height: 27px;
+        }
+      }
+    }
+  }
+
+
+
   .base_newBox{
     width: 1140px;
     margin: 0 auto;

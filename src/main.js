@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from '@/router'
 import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -9,7 +9,7 @@ import '@/assets/styles/reset.css'
 import {post,fetch} from './providers/http-service'
 import VueClipboard from 'vue-clipboard2' //复制板功能
 
-
+import 'swiper/dist/css/swiper.css'
 
 Vue.prototype.$httpPost=post;
 Vue.prototype.$httpGet=fetch;
@@ -43,3 +43,6 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+const API_PATH=window.location.origin+process.env.VUE_APP_BASE_API;
+Vue.prototype.API_PATH = API_PATH;

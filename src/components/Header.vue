@@ -16,16 +16,16 @@
 							<el-button @click="outClick">点击存储为退出状态</el-button>
               <el-button>{{this.$store.state.autoLogin}}</el-button>-->
               您好,
-              <router-link to="/login">去登录</router-link>
-              <router-link to="/register">免费注册</router-link>
-              <router-link to="/register" style="color:#606266;">帮助中心</router-link>
+              <router-link to="/login">去登录</router-link>|
+              <router-link to="/register">免费注册</router-link>|
+              <router-link to="/register">帮助中心</router-link>
               <span>
                 <i class="el-icon-phone"></i>咨询热线：1500000000
               </span>
             </div>
             <div class="header-top-right" v-else>
-              <router-link to="/account">{{this.$store.state.custName}}mbw</router-link>
-              <router-link to="/register" style="color:#606266;">帮助中心</router-link>
+              <router-link to="/account">{{this.$store.state.custName}}mbw</router-link>|
+              <router-link to="/register">帮助中心</router-link>
               <a @click="outClick">退出</a>
             </div>
           </el-col>
@@ -70,11 +70,10 @@
             :router="true"
             @select="handleSelect"
           >
-            <div>热门需求</div>
             <el-menu-item index="/">首页</el-menu-item>
-            <el-menu-item index="/need">找需求</el-menu-item>
+            <el-menu-item index="/project">找项目</el-menu-item>
+            <el-menu-item index="/expert">找专家</el-menu-item>
             <el-menu-item index="/service">找服务</el-menu-item>
-            <el-menu-item index="/case">成功案例</el-menu-item>
             <el-menu-item index="/account">个人中心</el-menu-item>
           </el-menu>
         </div>
@@ -173,15 +172,11 @@ export default {
     outClick() {
       this.$store.commit("changeAutoLogin", "0");
       if (
-        this.$route.name == "asset" ||
-        this.$route.name == "plan" ||
-        this.$route.name == "detail" ||
-        this.$route.name == "invite" ||
-        this.$route.name == "set" ||
-        this.$route.name == "risk" ||
-        this.$route.name == "bankcard" ||
-        this.$route.name == "purchase" ||
-        this.$route.name == "invest"
+        this.$route.name == "account-project" ||
+        this.$route.name == "account-attme" ||
+        this.$route.name == "account-myatt" ||
+        this.$route.name == "account-message" ||
+        this.$route.name == "account-set"
       ) {
         this.$router.push("/");
       }
@@ -194,14 +189,6 @@ export default {
     // console.log(this.$route.matched[1].path);
     // this.activeIndex=this.$route.matched[1].path;
     //this.restaurants = this.loadAll();
-    this.$httpGet("/index/compsList")
-      .then(res => {
-        this.compsList = res.compsList;
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.log("访问接口失败" + err);
-      });
   },
   computed: {
     onRoutes() {
@@ -210,33 +197,24 @@ export default {
       if (this.$route.name == "") {
         return "/";
       } else if (
-        this.$route.name == "need" ||
-        this.$route.name == "funddetails" ||
-        this.$route.name == "companydetails" ||
-        this.$route.name == "fundAnno"
+        this.$route.name == "project-index" ||
+        this.$route.name == "project-detail"
       ) {
-        return "/need";
+        return "/project";
       } else if (
-        this.$route.name == "service"
+        this.$route.name == "service-index"
       ) {
         return "/service";
       } else if (
-        this.$route.name == "caseAll" ||
-        this.$route.name == "about_help" ||
-        this.$route.name == "about_optionGuide" ||
-        this.$route.name == "about_complain"
+        this.$route.name == "expert-index"
       ) {
-        return "/case";
+        return "/expert";
       } else if (
-        this.$route.name == "asset" ||
-        this.$route.name == "plan" ||
-        this.$route.name == "detail" ||
-        this.$route.name == "invite" ||
-        this.$route.name == "set" ||
-        this.$route.name == "risk" ||
-        this.$route.name == "bankcard" ||
-        this.$route.name == "purchase" ||
-        this.$route.name == "invest"
+        this.$route.name == "account-project" ||
+        this.$route.name == "account-attme" ||
+        this.$route.name == "account-myatt" ||
+        this.$route.name == "account-message" ||
+        this.$route.name == "account-set"
       ) {
         return "/account";
       } else {
@@ -256,8 +234,8 @@ export default {
 
   .header-top {
     width: 100%;
-    background-color: $color-back-third;
-    border-bottom: 1px solid $color-back-second;
+    background-color: $color-font-first;
+    border-bottom: 1px solid $color-font-first;
 
     .el-row {
       width: 1140px;
@@ -267,11 +245,11 @@ export default {
         height: 30px;
         line-height: 30px;
         font-size: 12px;
-        color: $color-font-second;
+        color: #fff;
 
         span {
           margin: 0 10px;
-          color: $color-back-first;
+          color: #fff;
         }
       }
 
@@ -280,16 +258,14 @@ export default {
         line-height: 30px;
         text-align: right;
         font-size: 12px;
-        color: $color-font-second;
+        color: #fff;
 
         a {
           padding: 3px 10px;
-          border-right: 1px solid $color-back-second;
-          color: red;
+          color: #fff;
 
           &:last-child {
             border: none 0;
-            color: $color-font-second;
           }
           &:hover {
             opacity: 0.5;
@@ -343,7 +319,7 @@ export default {
       .el-menu-item {
         font-size: 16px;
         height: 50px;
-        margin-left: 70px;
+        margin:0 65px;
         line-height: 50px;
       }
       div {

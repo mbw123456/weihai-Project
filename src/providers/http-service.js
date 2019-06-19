@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from 'axios';
-import router from '../router'
+import router from '@/router'
 import store from '../store'
 // let axiosBaseUrl
 // if(process.env.NODE_ENV == 'production'){
@@ -11,7 +11,7 @@ import store from '../store'
 //     axiosBaseUrl = '/api'
 // }
 axios.defaults.timeout = 50000;
-axios.defaults.baseURL ='/hjy_pc_interface/api'; //填写域名
+axios.defaults.baseURL = process.env.VUE_APP_BASE_API; //填写域名
 axios.defaults.withCredentials = true;
 
 //http request 拦截器
