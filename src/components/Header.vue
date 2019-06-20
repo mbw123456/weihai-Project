@@ -24,7 +24,7 @@
               </span>
             </div>
             <div class="header-top-right" v-else>
-              <router-link to="/account">{{this.$store.state.custName}}mbw</router-link>|
+              <router-link to="/account">{{this.$store.state.custName}}</router-link>|
               <router-link to="/register">帮助中心</router-link>
               <a @click="outClick">退出</a>
             </div>
@@ -170,7 +170,9 @@ export default {
       this.$store.commit("changeAutoLogin", "1");
     },
     outClick() {
+      this.$httpGet("/login/logout").then(res => {})
       this.$store.commit("changeAutoLogin", "0");
+      this.$store.commit("setCustType", null);
       if (
         this.$route.name == "account-project" ||
         this.$route.name == "account-attme" ||

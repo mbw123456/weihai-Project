@@ -6,9 +6,7 @@
 				<div class="account-leftbox">
 
 					<div class="account-routebtn">
-
-						<router-link :to="{ path: '/account'}" tag="p"><span class="el-icon-document"></span>我的项目<i class="el-icon-caret-right"></i></router-link>
-
+						<router-link :to="{ path: '/account'}" tag="p" v-if="this.$store.state.custType=='1' || this.$store.state.custType=='3'"><span class="el-icon-document"></span>我的项目<i class="el-icon-caret-right"></i></router-link>
 						<h4><span class="el-icon-star-off"></span>关注中心</h4>
 						<router-link :to="{ path: '/account/attentionMe'}" tag="li">关注我的<i class="el-icon-caret-right"></i></router-link>
 						<router-link :to="{ path: '/account/myAttention'}" tag="li">我关注的<i class="el-icon-caret-right"></i></router-link>
@@ -32,7 +30,7 @@
 
 <script>
 
-
+import store from '@/store'
 export default {
 	name: 'Account',
 	data(){
