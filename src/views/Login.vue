@@ -11,10 +11,10 @@
         </ul>
       </el-col>
       <el-col :span="12" class="login-rightbox">
-        <h3>登录 <span>没有账号？<router-link to="/register">免费注册</router-link></span></h3>
+        <h3>登录</h3>
         <el-form :model="form" :hide-required-asterisk="true" :rules="rules" ref="ruleForm" label-width="50px" class="login-form">
           <el-form-item label="账号" prop="account" >
-            <el-input v-model="form.account" autocomplete="off" placeholder="请输入身份证号码/手机号"></el-input>
+            <el-input v-model="form.account" autocomplete="off" placeholder="请输入账户"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password" >
             <el-input v-model="form.password" autocomplete="off" placeholder="请输入密码" show-password></el-input>
