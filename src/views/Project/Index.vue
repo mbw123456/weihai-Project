@@ -5,7 +5,7 @@
       <div class="shop-search-inner">
         <div class="search-box">
 
-          <el-row class="search-part">
+          <!-- <el-row class="search-part">
             <el-col :span="2" class="search-title">所在地区:</el-col>
             <el-col :span="22">
               <el-radio-group v-model="radio2" size="medium" @change="changeFundType">
@@ -15,14 +15,14 @@
                 </el-radio-button>
               </el-radio-group>
             </el-col>
-          </el-row>
+          </el-row> -->
 
           <el-row class="search-part">
             <el-col :span="2" class="search-title">发布时间:</el-col>
             <el-col :span="22">
-              <el-radio-group v-model="radio1" size="medium" @change="changeFundType">
-                <el-radio-button :label="item" border v-for="(item,key) in dataTime" :key="key">
-                  {{item}}
+              <el-radio-group v-model="time_type" size="medium" @change="changeTimeType">
+                <el-radio-button :label="item.value" border v-for="(item,key) in dataTime" :key="key">
+                  {{item.time_name}}
                   <b>/</b>
                 </el-radio-button>
               </el-radio-group>
@@ -32,24 +32,24 @@
           <el-row class="search-part industry">
             <el-col :span="2" class="search-title">所属行业:</el-col>
             <el-col :span="22">
-              <el-radio-group v-model="radio0" size="medium" @change="changeFundType">
-                <el-radio-button :label="item" border v-for="(item,key) in dataType" :key="key">
-                  {{item}}
+              <el-radio-group v-model="industry_one" size="medium" @change="changeIndustryOne">
+                <el-radio-button :label="item.id" border v-for="(item,key) in industry_one_list" :key="key">
+                  {{item.industry_name}}
                   <b>/</b>
                 </el-radio-button>
               </el-radio-group>
             </el-col>
           </el-row>
-          <div class="private-search-box" v-loading="loading">
+          <div v-if="industry_one != 0" class="private-search-box" v-loading="loading">
               <el-scrollbar :native="false">
                 <!--以下是要滚动的内容-->
-                <el-radio-group v-model="radio3" size="mini" @change="changeFundType" style="padding:5px;">
+                <el-radio-group v-model="industry_two" size="mini" @change="changeIndustryTwo" style="padding:5px;">
                   <el-radio-button 
-                  :label="item" 
+                  :label="item.id" 
                   border
-                  v-for="(item,key) in dataArea"
+                  v-for="(item,key) in industry_two_list"
                   :key="key">
-                  {{item}}
+                  {{item.industry_name}}
                   </el-radio-button>
                 </el-radio-group>
               </el-scrollbar>
@@ -58,9 +58,9 @@
           <el-row class="search-part">
             <el-col :span="2" class="search-title">项目状态:</el-col>
             <el-col :span="22">
-              <el-radio-group v-model="radio4" size="medium" @change="changeFundType">
-                <el-radio-button :label="item" border v-for="(item,key) in dataStatus" :key="key">
-                  {{item}}
+              <el-radio-group v-model="projectstatus" size="medium" @change="changeStatusType">
+                <el-radio-button :label="item.value" border v-for="(item,key) in dataStatus" :key="key">
+                  {{item.name}}
                   <b>/</b>
                 </el-radio-button>
               </el-radio-group>
@@ -77,7 +77,7 @@
 					v-loading="loading"
 					stripe
 					:data="tableData"
-					style="width: 100%;"
+					style="width: 100%;min-height:400px;"
 					>
 <!-- {
           title: "船舶建造于设计艺术",
@@ -87,28 +87,34 @@
           button: "详情"
         }, -->
 					<el-table-column
-						label="基金名称"
+						label="项目名称"
 						width="400">
             <template slot-scope="scope">
-							<el-button @click.stop="jumpToDetail(scope.$index)" type="text" size="">{{scope.row.title}}</el-button>
+							<el-button @click.stop="jumpToDetail(scope.$index)" type="text" size="">{{scope.row.project}}</el-button>
 						</template>
 					</el-table-column>
 
 					<el-table-column
-						prop="desc"
+						prop="industry_name_show"
 						label="所属行业"
 						>
 					</el-table-column>
 
-          <el-table-column
+          <!-- <el-table-column
 						prop="address"
 						label="所在地区"
 						>
-					</el-table-column>
+					</el-table-column> -->
 
 					<el-table-column
-						prop="day"
+						prop="createdate"
 						label="发布时间"
+						>
+					</el-table-column>
+
+          <el-table-column
+						prop="status_show"
+						label="项目状态"
 						>
 					</el-table-column>
 
@@ -161,19 +167,19 @@ export default {
       //获取public路径
       publicPath: process.env.BASE_URL,
       //专题分类
-      radio0: "全部",
-      dataType: [
-        "全部",
-        "新材料",
-        "海洋生物",
-        "自动化",
-        "船舶制造及配套",
-        "精密机械",
-        "其他"
-      ],
+      industry_one: 0,
+      industry_one_list: [],
+      industry_two: 0,
+      industry_two_list: [],
       //发布时间
-      radio1: "全部",
-      dataTime: ["全部", "三天内发布", "一周内发布", "一月内发布"],
+      time_type: "all",
+      //dataTime: [{time_name:'全部', value:'ALL'}time_name"全部", "三天内发布", "一周内发布", "一月内发布"],
+      dataTime: [
+        {time_name: '全部', value: 'all'}, 
+        {time_name:'三天内发布', value:'three_day'}, 
+        {time_name:'一周内发布', value:'week'}, 
+        {time_name:'一月内发布', value:'month'}
+      ],
       //所在地区
       radio2: "全部",
       dataArea: [
@@ -187,22 +193,12 @@ export default {
         "经区"
       ],
       radio3: "全部",
-      dataArea: [
-        "全部",
-        "环翠区",
-        "乳山市",
-        "文登区",
-        "荣成市",
-        "临港区",
-        "高区",
-        "经区"
-      ],
-      radio4: "全部",
+      projectstatus: "all",
       dataStatus:[
-        "全部",
-        "待合作",
-        "合作中",
-        "合作成功"
+        {name: '全部', value: 'all'},
+        {name: '待合作', value: 'W'},
+        {name: '合作中', value: 'M'},
+        {name: '合作成功', value: 'S'}
       ],
       //else
       // cur: 0,
@@ -288,58 +284,75 @@ export default {
       loading: false,
       cur_page:1,
       totalnum:100,
-
-      // timeText: "发送验证码",
-      // timeDisable: false,
-      // form: {
-      //   bankPhone: "",
-      //   checkCode: "",
-      //   desc: ""
-      // },
-      // rules: {
-      //   bankPhone: [
-      //     { required: true, message: "请输入手机号", trigger: "change" },
-      //     { validator: validateMobile, trigger: "change" }
-      //   ],
-      //   checkCode: [
-      //     { required: true, message: "请输入验证码", trigger: "change" },
-      //     { min: 4, max: 6, message: "验证码位数不正确", trigger: "change" }
-      //   ]
-      // },
-      // needList: [
-      //   {
-      //     url:'/img/weihai-need_07.png',
-      //     title: "码垛机器人",
-      //     address: "不限",
-      //     way: "价格面议",
-      //   },
-      //   {
-      //     url:'/img/weihai-need_07.png',
-      //     title: "码垛机器人",
-      //     address: "不限",
-      //     way: "价格面议",
-      //   },
-      // ],
     };
+  },
+  created() {
+    this.getRequirementsList()
+    this.getIndustryInfoListOne()
+    // this.getDictDataList()
   },
   methods: {
     //分页
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      console.log(`当前页: ${val}`)
     },
     changeFundType(item) {
-      console.log(item);
+      console.log(item)
     },
-    jumpToDetail(index){
+    changeTimeType(item) {
+      this.getRequirementsList()
+    },
+    changeStatusType(){
+      this.getRequirementsList()
+    },
+    changeIndustryOne(item){
+      console.log('changeIndustryOne:' + item)
+      this.$httpPost("/tbIndustryInfo/industryInfoListTwo",{parent_id: item}).then(res => {
+          this.industry_two_list = res.rows
+          this.industry_two = 0
+          this.getRequirementsList()
+				}).catch(err => {
+					//错误的回调
+					console.log("访问接口失败");
+      });
+    },
+    changeIndustryTwo(item){
+      this.getRequirementsList()
+    },
+    jumpToDetail(index) {
       // console.log(a);
       this.$router.push({
         path: "projectDetail",
         query: {
           code: index,
         }
+      });
+    },
+    getRequirementsList() {
+      this.$httpPost("/tbRequirements/requireList",
+        {
+          time_type: this.time_type,
+          projectstatus: this.projectstatus,
+          industry_one: this.industry_one,
+          industry_two: this.industry_two
+        }).then(res => {
+          this.tableData = res.rows
+          this.totalnum = res.total
+				}).catch(err => {
+					//错误的回调
+					// eslint-disable-next-line no-console
+					console.log("访问接口失败");
+      });
+    },
+    getIndustryInfoListOne() {
+      this.$httpPost("/tbIndustryInfo/industryInfoListOne",).then(res => {
+          this.industry_one_list = res.rows
+				}).catch(err => {
+					//错误的回调
+					console.log("访问接口失败");
       });
     }
     //页面跳转加参数
