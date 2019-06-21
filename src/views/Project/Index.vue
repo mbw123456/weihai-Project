@@ -90,7 +90,7 @@
 						label="项目名称"
 						width="400">
             <template slot-scope="scope">
-							<el-button @click.stop="jumpToDetail(scope.$index)" type="text" size="">{{scope.row.project}}</el-button>
+							<el-button @click.stop="jumpToDetail(scope.row.id)" type="text" size="">{{scope.row.project}}</el-button>
 						</template>
 					</el-table-column>
 
@@ -309,17 +309,16 @@ export default {
       this.getRequirementsList()
     },
     changeIndustryOne(item){
-      console.log('changeIndustryOne:' + item)
       this.$httpPost("/tbIndustryInfo/industryInfoListTwo",{parent_id: item}).then(res => {
           this.industry_two_list = res.rows
           this.industry_two = 0
           this.getRequirementsList()
 				}).catch(err => {
 					//错误的回调
-					console.log("访问接口失败");
+					console.log("访问接口失败:" + err);
       });
     },
-    changeIndustryTwo(item){
+    changeIndustryTwo(){
       this.getRequirementsList()
     },
     jumpToDetail(index) {
@@ -344,7 +343,7 @@ export default {
 				}).catch(err => {
 					//错误的回调
 					// eslint-disable-next-line no-console
-					console.log("访问接口失败");
+					console.log("访问接口失败:" + err);
       });
     },
     getIndustryInfoListOne() {
