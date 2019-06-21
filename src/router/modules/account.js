@@ -11,6 +11,7 @@ const accountRouter = {
 				component: () => import( /* webpackChunkName: "account" */ '@/views/Account/MyProject/Index.vue'),
 				meta: {
 					requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+					custType: ['1','3'],
 				},
 			},
 			{

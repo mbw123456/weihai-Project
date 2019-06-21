@@ -23,16 +23,33 @@ Vue.use(VueClipboard); //复制板功能
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
       if (store.state.autoLogin=='1') {  // 通过vuex state获取当前的登录状态
-          next();
-      }
-      else {
+          if(to.meta.custType!=null && to.meta.custType.length>0){ 
+              console.info(store.state.custType);          
+            if(to.meta.custType.includes(store.state.custType)){
+                next();
+            }else{
+                if(store.state.custType=='1' || store.state.custType=='3'){
+                    next({
+                        path: '/account'
+                    })
+                }else{
+                    next({
+                        path: '/account/message'
+                    })
+                }
+                
+            }
+          }else{
+            next();
+          }
+          next()
+      } else {
           next({
               path: '/login',
               query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
           })
       }
-  }
-  else {
+  } else {
       next();
   }
 })

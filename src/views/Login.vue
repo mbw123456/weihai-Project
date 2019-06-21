@@ -11,10 +11,10 @@
         </ul>
       </el-col>
       <el-col :span="12" class="login-rightbox">
-        <h3>登录 <span>没有账号？<router-link to="/register">免费注册</router-link></span></h3>
+        <h3>登录</h3>
         <el-form :model="form" :hide-required-asterisk="true" :rules="rules" ref="ruleForm" label-width="50px" class="login-form">
           <el-form-item label="账号" prop="account" >
-            <el-input v-model="form.account" autocomplete="off" placeholder="请输入身份证号码/手机号"></el-input>
+            <el-input v-model="form.account" autocomplete="off" placeholder="请输入账户"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password" >
             <el-input v-model="form.password" autocomplete="off" placeholder="请输入密码" show-password></el-input>
@@ -45,7 +45,6 @@ export default {
     return {
       btnLoading:false,
       title:'登录',
-      bankCard:[''],
       form:{
 				account:'',
 				password:'',
@@ -53,8 +52,6 @@ export default {
       rules: {
 				account:[
           { required: true, message: '请输入账号', trigger: 'blur' },
-          { min:5, message: '最少2个字符', trigger: 'blur' },
-          { max:18, message: '最多18位', trigger: 'blur' },
 				],
 				password:[
 					{ required: true, message: '请输入密码', trigger: 'blur' },
@@ -63,45 +60,38 @@ export default {
     }
   },
   methods:{
-    submitForm(formName) {
-      this.btnLoading = true;
+    submitForm(formName) {      
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // this.$httpPost("/pc/userLogin/login",{account:this.form.account,accountPwd:this.form.password}).then(res => {
-          //   if(res.isValid == "true"){
-              // var riskType = res.riskType;
-              // this.$store.commit('changeRiskType',res.riskType); //修改登录状态
-              // this.$store.commit('setCustName',res.user.custfullname); //修改登录状态
-              // this.title_name = res.user.custfullname;
-              // this.last_login_time = res.last_login_time_str;
-              this.$store.commit('changeAutoLogin','1'); //修改登录状态
-              // this.$store.commit('setBankCard',this.bankCard);
-              this.$router.push(this.$route.query.redirect || '/account');  //用来前往本想去的页面,如果没有前一个页面，那么就回到首页
+          this.btnLoading = true;
+          this.$httpPost("/login/login",{account:this.form.account,password:this.form.password}).then(res => {
+            if(res.code == "success"){
+              this.$store.commit('setCustName',res.cust_name);
+              this.$store.commit('changeAutoLogin','1');
+              this.$store.commit('setCustType',res.cust_type)
+              this.$router.push(this.$route.query.redirect || '/account'); 
               this.btnLoading = false;
-            // }else{
-            //   this.btnLoading = false;
-            //   this.$message({
-            //     showClose: true,
-            //     type: 'error',
-            //     customClass:'register-error',
-            //     center:true,
-            //     message: res.msg
-            //   });
-            // }
-          // }).catch(err => {
-          //   this.btnLoading = false;
-          //   //错误的回调
-          //   // eslint-disable-next-line no-console
-          //   console.log("访问接口失败"+err);
-          // });
-          
-        } else {
-          this.btnLoading = false;
-          console.log('error submit!!');
-          return false;
+              this.$httpGet("/account/requirements/myRequirements").then(res =>{
+                
+              })
+            }else{
+              this.btnLoading = false;
+              this.$message({
+                showClose: true,
+                type: 'error',
+                customClass:'register-error',
+                center:true,
+                message: res.msg
+              });
+            }
+          }).catch(err => {
+            this.btnLoading = false;
+            console.log("访问接口失败"+err);
+          });
         }
       });
     },
+
   },
   mounted(){
 
