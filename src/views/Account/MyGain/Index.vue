@@ -1,42 +1,45 @@
 <template>
-  <div class="att-me">
-      <h1 class="project-title">关注我的 </h1>
-      <el-table
-        v-loading="loading"
-        stripe
-        :data="tableData"
-        >
-        <el-table-column
-          prop="day"
-          label="关注时间"
-          align="center"
-          >
-        </el-table-column>
-
-        <el-table-column
-          label="名称"
-          align="center"
-          width="300">
-          <template slot-scope="scope">
-            <el-button type="text" size="">{{scope.row.title}}</el-button>
-          </template>
-        </el-table-column>
-
-        <el-table-column
-          prop="desc"
-          align="center"
-          label="类型"
-          >
-        </el-table-column>
-
-        <el-table-column
-          prop="desc1"
-          align="center"
-          label="关注需求"
-          >
-        </el-table-column>
-
-      </el-table>
+  <div class="account-project">
+      <h1 class="project-title">我的成果 <el-button @click="gotoPublish" type="warning" size="mini" style="float:right; margin-top:11px; margin-right:40px;">发布新成果</el-button></h1>
+      <h2 class="project-title-small"><span>匹配推荐的需求</span></h2>
+      <ul class="project-list">
+        <li v-for="item in 3" :key="item">
+          <p>金属表面喷涂技术
+            <el-tag
+              size="small"
+              v-for="item in tags"
+              :key="item"
+              type="warning">
+              {{item}}
+            </el-tag>
+          </p>
+          <el-row>
+            <el-col :span="4">
+              <h6>可量产</h6>
+              <h5>技术成熟度</h5>
+            </el-col>
+            <el-col :span="4">
+              <h6>自动化</h6>
+              <h5>行业</h5>
+            </el-col>
+            <el-col :span="4">
+              <h6>专利</h6>
+              <h5>专利类型</h5>
+            </el-col>
+            <el-col :span="4">
+              <h4>20</h4>
+              <h5>关注度</h5>
+            </el-col>
+            <el-col :span="4">
+              <h6>待提交</h6>
+              <h5>状态</h5>
+            </el-col>
+            <el-col :span="4">
+              <el-button @click="gotoPublish(item)" type="primary" plain size="medium" style="margin-top:5px;">编辑</el-button>
+            </el-col>
+          </el-row>
+        </li>
+      </ul>
 
   </div>
 </template>
@@ -44,31 +47,13 @@
 <script>
 
 export default {
-  name: "att-me",
+  name: "account-project",
   data() {
     return {
       //获取public路径
       publicPath: process.env.BASE_URL,
-      tableData: [
-        {
-          title: "威海永新技术服务有限公司",
-          desc: "服务公司",
-          desc1:'高精焊接项目',
-          day: "2019-03-17",
-        },
-        {
-          title: "威海永新技术服务有限公司",
-          desc: "服务公司",
-          desc1:'高精焊接项目',
-          day: "2019-03-17",
-        },
-        {
-          title: "威海永新技术服务有限公司",
-          desc: "服务公司",
-          desc1:'高精焊接项目',
-          day: "2019-03-17",
-        },
-      ],
+      tags:['自动化','强粘合性','需耐腐蚀'],
+      imgBox:['/img/weihai-center_11.png','/img/weihai-center_14.png'],
     };
   },
   methods: {
@@ -93,7 +78,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import "@/assets/styles/vars.scss";
-.att-me {
+.account-project {
   position: relative;
   background: url(~@/assets/img/weihai-center_07.png) no-repeat 700px 70px;
   background-size: 150px;

@@ -2,8 +2,8 @@
   <div class="headerMini"><!-- 这是根节点 -->
 		<el-row class="headerMini-inner">
 			<el-col :span="12">
-				<router-link to="/"><img src="@/assets/img/base-img_03.png"></router-link>
-				<span>{{title}}</span>
+				<router-link to="/"><img style="width:50px;" src="@/assets/img/weihai_index_03.png"></router-link>
+				<span style="vertical-align:20px;">{{title}}</span>
 			</el-col>
 			<el-col :span="12">
 				<!-- <el-button type="text">忘记密码?</el-button> -->

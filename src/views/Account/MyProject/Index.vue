@@ -1,6 +1,6 @@
 <template>
   <div class="account-project">
-      <h1 class="project-title">我的项目</h1>
+      <h1 class="project-title">我的需求 <el-button @click="gotoPublish" type="warning" size="mini" style="float:right; margin-top:11px; margin-right:40px;">发布新需求</el-button></h1>
       <h2 class="project-title-small"><span>已发布的项目</span></h2>
       <ul class="project-list">
         <li v-for="item in 3" :key="item">
@@ -31,7 +31,7 @@
               <h5>发布时间</h5>
             </el-col>
             <el-col :span="4">
-              <el-button type="primary" plain size="medium" style="margin-top:5px;">详情</el-button>
+              <el-button @click="goToNeedDetail(item)" type="primary" plain size="medium" style="margin-top:5px;">详情</el-button>
             </el-col>
           </el-row>
         </li>
@@ -39,7 +39,7 @@
 
       <h2 class="project-title-small"><span>未发布的项目</span></h2>
       <ul class="project-list">
-        <li v-for="item in imgBox" :key="item" :style="{backgroundImage:'url(' + item + ')',backgroundRepeat:'no-repeat',backgroundPosition:'right top'}">
+        <li v-for="(item,key) in imgBox" :key="key" :style="{backgroundImage:'url(' + item + ')',backgroundRepeat:'no-repeat',backgroundPosition:'right top'}">
           <p>金属表面喷涂技术
             <el-tag
               size="small"
@@ -67,7 +67,7 @@
               <h5>发布时间</h5>
             </el-col>
             <el-col :span="4">
-              <el-button type="primary" plain size="medium" style="margin-top:5px;">详情</el-button>
+              <el-button @click="goToNeedDetail(key)" type="primary" plain size="medium" style="margin-top:5px;">详情</el-button>
             </el-col>
           </el-row>
         </li>
@@ -91,6 +91,20 @@ export default {
     handleClick(tab, event) {
         console.log(tab, event);
     },
+    goToNeedDetail(index) {
+      console.log(index);
+      this.$router.push({
+        name: "need-detail",
+        params: {
+          id: index,
+        }
+      });
+    },
+    gotoPublish(){
+      this.$router.push({
+        name: "need-publish",
+      });
+    }
   },
   mounted() {
   },

@@ -5,8 +5,10 @@
 			<el-col style="width:220px;">
 				<div class="account-leftbox">
 
-					<div class="account-routebtn">
-						<router-link :to="{ path: '/account'}" tag="p" v-if="this.$store.state.custType=='1' || this.$store.state.custType=='3'"><span class="el-icon-document"></span>我的项目<i class="el-icon-caret-right"></i></router-link>
+					<div class="account-routebtn" >
+						<!-- <router-link :to="{ path: '/account'}" tag="p" v-if="this.$store.state.custType=='1' || this.$store.state.custType=='3'"><span class="el-icon-document"></span>我的项目<i class="el-icon-caret-right"></i></router-link> -->
+						<router-link :class="{'router-link-exact-active':isActive}"  :to="{ path: '/account/need'}" tag="p"><span class="el-icon-document"></span>我的需求<i class="el-icon-caret-right"></i></router-link>
+						<router-link :class="{'router-link-exact-active':isActive1}"  :to="{ path: '/account/gain'}" tag="p"><span class="el-icon-trophy"></span>我的成果<i class="el-icon-caret-right"></i></router-link>
 						<h4><span class="el-icon-star-off"></span>关注中心</h4>
 						<router-link :to="{ path: '/account/attentionMe'}" tag="li">关注我的<i class="el-icon-caret-right"></i></router-link>
 						<router-link :to="{ path: '/account/myAttention'}" tag="li">我关注的<i class="el-icon-caret-right"></i></router-link>
@@ -16,6 +18,7 @@
 						<div style="text-align:center; padding:20px; margin-top:50px;"><img style="width:100%;" src="@/assets/img/weihai-center_16.png" alt=""></div>
 						
 					</div>
+					
 				</div>
 			</el-col>
 			<el-col :span="19" :offset="1" style="width:870px;">
@@ -49,6 +52,14 @@ export default {
 				{ "name": "全球机会型", "desc":"全球建仓     资产轮动", "value": "3.12%", "tzlj":"资产价格走势总是起起伏伏，本产品致力于高抛低吸、抓住这些波动。", "fxsy":"高风险，高收益" },
 			],
 		}
+	},
+	computed: {
+		isActive() {
+			if(this.$route.name == "need-detail" || this.$route.name == "need-publish") return true;
+		},
+		isActive1() {
+			if(this.$route.name == "gain-publish") return true;
+		},
 	},
 	methods:{
 		// getAccountBaseMessage(){//查询客户基本信息

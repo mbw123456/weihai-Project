@@ -7,6 +7,11 @@ const serviceRouter = [
 		name: 'service-index',
 		component: () => import( /* webpackChunkName: "expert" */ '@/views/Service/Index.vue'),
 	},
+	{
+		path: 'serviceDetail',
+		name: 'service-detail',
+		component: () => import( /* webpackChunkName: "project" */ '@/views/Service/Detail.vue'),
+	},
 ]
 
 export default serviceRouter;

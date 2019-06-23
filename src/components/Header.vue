@@ -74,7 +74,7 @@
             <el-menu-item index="/project">找项目</el-menu-item>
             <el-menu-item index="/expert">找专家</el-menu-item>
             <el-menu-item index="/service">找服务</el-menu-item>
-            <el-menu-item index="/account">个人中心</el-menu-item>
+            <el-menu-item index="/account/need">个人中心</el-menu-item>
           </el-menu>
         </div>
       </div>
@@ -204,7 +204,8 @@ export default {
       ) {
         return "/project";
       } else if (
-        this.$route.name == "service-index"
+        this.$route.name == "service-index" ||
+        this.$route.name == "service-detail"
       ) {
         return "/service";
       } else if (
@@ -213,12 +214,16 @@ export default {
         return "/expert";
       } else if (
         this.$route.name == "account-project" ||
+        this.$route.name == "need-detail" ||
+        this.$route.name == "need-publish" ||
+        this.$route.name == "gain-index" ||
+        this.$route.name == "gain-publish" ||
         this.$route.name == "account-attme" ||
         this.$route.name == "account-myatt" ||
         this.$route.name == "account-message" ||
         this.$route.name == "account-set"
       ) {
-        return "/account";
+        return "/account/need";
       } else {
         return "/";
       }

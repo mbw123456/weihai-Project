@@ -63,7 +63,7 @@
                 label="姓名"
                 width="300">
                 <template slot-scope="scope">
-                  <el-button type="text" size="">{{scope.row.title}}</el-button>
+                  <el-button @click="jumpToDetail(scope.row.id)" type="text" size="">{{scope.row.title}}</el-button>
                 </template>
               </el-table-column>
 
@@ -89,7 +89,7 @@
                 label="操作"
                 width="100">
                 <template slot-scope="scope">
-                  <el-button @click.stop="jumpTo(scope.row)" type="text" size="">详情</el-button>
+                  <el-button @click="jumpToDetail(scope.row.id)" type="text" size="">详情</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -311,6 +311,15 @@ export default {
     },
     changeFundType(item) {
       console.log(item);
+    },
+    jumpToDetail(index) {
+      console.log(index);
+      this.$router.push({
+        path: "serviceDetail",
+        query: {
+          code: index,
+        }
+      });
     },
     //页面跳转加参数
     // openDetails(row, column, event) {

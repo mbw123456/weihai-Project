@@ -1,35 +1,18 @@
 <template>
-  <div class="project-detail">
+  <div class="service-detail">
     <!-- 这是根节点 -->
     <div class="shop-search">
       <div class="shop-search-inner">
-        <div class="desc">待合作</div>
-        <p class="title">金属表面喷涂技术<span>需求编码:Aa001</span></p>
-        <div class="tags">
-          <el-tag
-            size="small"
-            v-for="item in tags"
-            :key="item"
-            type="warning">
-            {{item}}
-          </el-tag>
-        </div>
+        
         <el-row class="center">
-          <el-col :span="18" style="border-right:1px dotted #ddd;">
-            <div class="center-left">
-              <h4>15<span>万</span></h4>
-              <h5>计划投入(元)</h5>
-            </div>
-            <div class="center-left">
-              <h4>3<span>个月</span></h4>
-              <h5>解决期限</h5>
-            </div>
-            <div class="center-left">
-              <h6>联合攻关</h6>
-              <h5>解决方式</h5>
-            </div>
+          <el-col :span="4">
+           <img src="@/assets/img/account-back_03.png">
           </el-col>
-          <el-col :span="6">
+          <el-col :span="14" style="border-right:1px dotted #ddd; margin-top:20px;">
+           <p>庞博士<span>专家<img src="@/assets/img/indexElse_11.png" alt=""></span></p>
+           <h4><i class="el-icon-setting"></i>自动化<i class="el-icon-user"></i>副教授<i class="el-icon-date"></i>13年工作经验</h4>
+          </el-col>
+          <el-col :span="6" style="margin-top:25px;">
             <div style="padding-bottom:10px; margin-top:-10px; text-align:center;">
               <el-button type="primary" size="medium" style="width:150px;">咨询</el-button>
             </div>
@@ -38,10 +21,6 @@
             </div>
           </el-col>
         </el-row>
-        <div class="footer">
-          <i class="el-icon-location-outline"></i>环翠区
-          <i class="el-icon-time"></i>发布时间:2019-05-10
-        </div>
       </div>
     </div>
 
@@ -106,7 +85,7 @@
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
-  name: "project-detail",
+  name: "service-detail",
   components:{
     swiper,
     swiperSlide
@@ -217,7 +196,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import "@/assets/styles/vars.scss";
-.project-detail {
+.service-detail {
   border-top: 1px solid $color-back-second;
   // min-height: 900px;
   .shop-search {
@@ -267,37 +246,45 @@ export default {
       }
       .center{
         padding: 5px 0;
+        img{
+          width: 120px;
+          height: 120px;
+        }
+        p{
+          color: $color-primary;
+          font-weight: bold;
 
-        .center-left{
-          width: 33%;
-          float: left;
-          text-align: center;
-
-          h4{
-            line-height: 40px;
-            height: 40px;
-            font-size: 30px;
-            color: $color-primary;
-            font-style: italic;
-            span{
-              font-size: 14px;
-              font-weight: normal;
-              font-style: normal;
-              margin-left: 5px;
+          span{
+            margin-left: 10px;
+            padding: 3px 10px;
+            background-color: $color-primary-second;
+            font-weight: normal;
+            font-size: 14px;
+            vertical-align: 1px;
+            img{
+              width: 14px;
+              height: 14px;
+              vertical-align: -2px;
             }
           }
-          h5{
-            font-size: 14px;
-            font-weight: normal;
-            color: $color-font-third;
-          }
-          h6{
-            line-height: 40px;
-            height: 40px;
-            font-size: 20px;
-            color: $color-primary;
+        }
+        h4{
+          padding-top: 30px;
+          font-size: 16px;
+          color: $color-primary;
+          font-weight: normal;
+
+          i{
+            font-size: 25px;
+            margin-left: 30px;
+            vertical-align: -3px;
+            margin-right:5px;
+            &:first-child{
+              margin-left: 0;
+            }
           }
         }
+        
       }
       .footer{
         font-size: 14px;
@@ -419,7 +406,7 @@ export default {
 	overflow: scroll;
 	overflow-x:auto;
 }
-.project-detail {
+.service-detail {
   .el-dialog{
     background-color: transparent;
     box-shadow: none;
