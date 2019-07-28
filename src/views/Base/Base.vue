@@ -399,6 +399,19 @@ export default {
     box-sizing: border-box;
     .el-card{
       margin-bottom: 15px;
+      &:first-child{
+         background: url(~@/assets/img/wh_back_01.png) no-repeat center center;
+         background-color: #fff;
+      }
+      &:nth-child(2){
+         background: url(~@/assets/img/wh_back_02.png) no-repeat center center;
+         background-color: #fff;
+      }
+      &:nth-child(3){
+         background: url(~@/assets/img/wh_back_03.png) no-repeat center center;
+         background-color: #fff;
+      }
+      
       img{
         width:50px;
       }

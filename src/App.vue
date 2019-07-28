@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="hjy-box-slidebar">
-			<el-scrollbar :native="false">
+			<el-scrollbar ref="scrollbar" :native="false">
         
         <router-view/>
 

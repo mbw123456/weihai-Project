@@ -6,6 +6,7 @@ import projectRouter from './modules/project'
 import expertRouter from './modules/expert'
 import serviceRouter from './modules/service'
 import accountRouter from './modules/account'
+import innovation from './modules/innovation'
 
 Vue.use(Router)
 
@@ -34,6 +35,7 @@ export default new Router({
 				...projectRouter,
 				...expertRouter,
 				...serviceRouter,
+				...innovation,
 				accountRouter,
 				
 				// {

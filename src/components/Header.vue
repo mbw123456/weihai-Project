@@ -75,6 +75,7 @@
             <el-menu-item index="/expert">找专家</el-menu-item>
             <el-menu-item index="/service">找服务</el-menu-item>
             <el-menu-item index="/account/need">个人中心</el-menu-item>
+            <el-menu-item index="/innovation">创新联盟</el-menu-item>
           </el-menu>
         </div>
       </div>
@@ -224,6 +225,12 @@ export default {
         this.$route.name == "account-set"
       ) {
         return "/account/need";
+      } else if (
+        this.$route.name == "innovation-index" ||
+        this.$route.name == "innovation-detail" ||
+        this.$route.name == "innovation-list"
+      ) {
+        return "/innovation";
       } else {
         return "/";
       }
@@ -326,7 +333,7 @@ export default {
       .el-menu-item {
         font-size: 16px;
         height: 50px;
-        margin:0 65px;
+        margin:0 25px;
         line-height: 50px;
       }
       div {
